@@ -66,24 +66,6 @@ int	render_next_frame(t_vars *vars)
 	return (0);
 }
 
-
-char* gradientToHexColor(int value, int startR, int startG, int startB, int endR, int endG, int endB) {
-    int r, g, b;
-    
-    // Calculate the RGB values based on the gradient
-    r = startR + (value * (endR - startR) / 100);
-    g = startG + (value * (endG - startG) / 100);
-    b = startB + (value * (endB - startB) / 100);
-    
-    // Allocate memory for the hex color code
-    char* hexColor = (char*)malloc(8 * sizeof(char));
-    
-    // Format the hex color code string
-    sprintf(hexColor, "#%02X%02X%02X", r, g, b);
-    
-    return hexColor;
-}
-
 int	main(void)
 {
 	t_vars	vars;

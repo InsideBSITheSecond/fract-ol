@@ -3,33 +3,36 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: llegrand <llegrand@student.42.fr>          +#+  +:+       +#+         #
+#    By: insidebsi <insidebsi@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/20 14:22:16 by llegrand          #+#    #+#              #
-#    Updated: 2023/07/06 19:07:48 by llegrand         ###   ########.fr        #
+#    Updated: 2023/07/18 22:10:18 by insidebsi        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CC := cc
-CCARGS := -Wall -Werror -Wextra
+CC := gcc
+CCARGS := #-Wall -Werror -Wextra
+LXARGS = -lX11 -lXxf86vm -lXext 
 
 AR := ar
 ARARGS := -crs		
 
 SRCS 	= main.c
-OBJS := $(SRCS:.c=.o)
 
-NAME := fractol.a
+MLX = minilibx-linux
+OSX_BULLSHIT = #__.SYMDEF __.SYMDEF\ SORTED
 
-$(NAME) : $(OBJS) libftmlx.a
-	$(AR) $(ARARGS) $(NAME) $(OBJS)
+NAME := fractol.out
+
+$(NAME) :
+	$(CC) main.c fractal.c color.c $(CCARGS) -L. -lft -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -g -o $(NAME)
 
 build :
 	mkdir build
 
 build/libmlx.a : minilibx build
-	cd minilibx && $(MAKE)
-	cp minilibx/libmlx.a build/
+	cd $(MLX) && $(MAKE)
+	cp $(MLX)/libmlx.a build/
 
 build/libft.a : libft build
 	cd libft && $(MAKE)
@@ -37,8 +40,8 @@ build/libft.a : libft build
 
 libftmlx.a : build/libft.a build/libmlx.a
 	cd build && ar -x libft.a && ar -x libmlx.a
-	cd build && ar -crs libftmlx.a *.o __.SYMDEF __.SYMDEF\ SORTED
-	cd build && rm *.o __.SYMDEF __.SYMDEF\ SORTED
+	cd build && ar -crs libftmlx.a *.o $(OSX_BULLSHIT)
+	cd build && rm *.o $(OSX_BULLSHIT)
 	cp build/libftmlx.a .
 	
 %.o : %.c

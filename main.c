@@ -1,68 +1,104 @@
-#include "minilibx/mlx.h"
-#include "libft/includes/libft.h"
-#include "libft/includes/ft_printf.h"
-#include "libft/includes/get_next_line.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: insidebsi <insidebsi@student.42.fr>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/18 19:15:14 by insidebsi         #+#    #+#             */
+/*   Updated: 2023/07/18 19:15:14 by insidebsi        ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-typedef struct	s_data {
-	void	*img;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-}				t_data;
+#include "fractol.h"
 
-typedef	struct s_square {
-	int	startX;
-	int endX;
-	int startY;
-	int	endY;
-	int	color;
-}				t_square;
+int squareWidth = 50;
+int squareHeight = 50;
 
-
-int windowWidth = 1920;
-int	windowHeight = 1080;
-int squareWidth = 1000;
-int squareHeight = 500;
-
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
+void	my_mlx_pixel_put(t_vars *vars, int x, int y, int color)
 {
 	char	*dst;
 
-	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
+	dst = vars->addr + (y * vars->line_length + x * (vars->bits_per_pixel / 8));
 	*(unsigned int*)dst = color;
 }
 
-void	makesquare(t_data *data, t_square square)
+void	makesquare(t_vars *vars, t_square square)
 {
 	for (int i = square.startX; i <= square.endX; i++)
 	{
 		for (int j = square.startY; j <= square.endY; j++)
 		{
-			my_mlx_pixel_put(data, i, j, square.color);
+			my_mlx_pixel_put(vars, i, j, square.color);
 		}
 	}
 }
 
-int	main(void)
+int	key_hook(int keycode, t_vars *vars)
 {
-	void	*mlx;
-	void	*mlx_win;
-	t_data	img;
+	if (keycode == KEY_UP)
+		vars->constant.x += 0.05;
+	if (keycode == KEY_DOWN)
+		vars->constant.x -= 0.05;
+	if (keycode == KEY_LEFT)
+		vars->constant.y -= 0.05;
+	if (keycode == KEY_RIGHT)
+		vars->constant.y += 0.05;
+
+	printf("%f %f\n", vars->constant.x, vars->constant.y);
+	return (0);
+}
+
+int mouse_hook(int code, t_vars *vars)
+{
+	(void)code;
+	(void)vars;
+	ft_printf("Hello from mouse_hook!\n");
+	return (0);
+}
+
+int	render_next_frame(t_vars *vars)
+{
 	t_square	square;
 
-	square.startX = (windowWidth / 2) - (squareWidth / 2);
-	square.endX = (windowWidth / 2) + (squareWidth / 2);
-	square.startY = (windowHeight / 2) - (squareHeight / 2);
-	square.endY = (windowHeight / 2) + (squareHeight / 2);
-	square.color = 0x262626;
+	render(vars, vars->constant);
+	//mlx_put_image_to_window(vars->mlx, vars->win, vars->img, 0, 0);
+	return (0);
+}
 
-	mlx = mlx_init();
-	mlx_win = mlx_new_window(mlx, windowWidth, windowHeight, "Hello world!");
-	img.img = mlx_new_image(mlx, windowWidth, windowHeight);
-	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
-								&img.endian);
-	makesquare(&img, square);
-	mlx_put_image_to_window(mlx, mlx_win, img.img, 0, 0);
-	mlx_loop(mlx);
+
+char* gradientToHexColor(int value, int startR, int startG, int startB, int endR, int endG, int endB) {
+    int r, g, b;
+    
+    // Calculate the RGB values based on the gradient
+    r = startR + (value * (endR - startR) / 100);
+    g = startG + (value * (endG - startG) / 100);
+    b = startB + (value * (endB - startB) / 100);
+    
+    // Allocate memory for the hex color code
+    char* hexColor = (char*)malloc(8 * sizeof(char));
+    
+    // Format the hex color code string
+    sprintf(hexColor, "#%02X%02X%02X", r, g, b);
+    
+    return hexColor;
+}
+
+int	main(void)
+{
+	t_vars	vars;
+
+	vars.render_size = (t_ivec2d){.x = 500, .y = 500};
+	vars.constant = (t_vec2d){.x = -0.75, .y = 0.05};
+
+	vars.mlx = mlx_init();
+	vars.win = mlx_new_window(vars.mlx, vars.render_size.x, vars.render_size.y, "UwU");
+	vars.img= mlx_new_image(vars.mlx, vars.render_size.x, vars.render_size.y);
+	vars.addr = mlx_get_data_addr(vars.img, &vars.bits_per_pixel, &vars.line_length, &vars.endian);
+
+
+	mlx_key_hook(vars.win, key_hook, &vars);
+	mlx_mouse_hook(vars.win, mouse_hook, &vars);
+	mlx_loop_hook(vars.mlx, render_next_frame, &vars);
+	mlx_loop(vars.mlx);
 }

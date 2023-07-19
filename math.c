@@ -1,38 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   color.c                                            :+:      :+:    :+:   */
+/*   math.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: insidebsi <insidebsi@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/18 22:06:49 by insidebsi         #+#    #+#             */
-/*   Updated: 2023/07/19 15:35:24 by insidebsi        ###   ########.fr       */
+/*   Created: 2023/07/19 15:35:42 by insidebsi         #+#    #+#             */
+/*   Updated: 2023/07/19 15:46:29 by insidebsi        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-int	create_argb(int a, int r, int g, int b)
+t_vec2d add_vec2d(t_vec2d a, t_vec2d b)
 {
-	return (a << 24 | r << 16 | g << 8 | b);
+    t_vec2d added;
+
+    added.x = a.x + b.x;
+    added.y = a.y + b.y;
+    return (added);
 }
 
-int	get_a(int trgb)
-{
-	return ((trgb >> 24) & 0xFF);
-}
 
-int	get_r(int trgb)
+t_vec2d	virtual_to_real(t_vars vars, int x, int y)
 {
-	return ((trgb >> 16) & 0xFF);
-}
+	t_cpx	res;
 
-int	get_g(int trgb)
-{
-	return ((trgb >> 8) & 0xFF);
-}
-
-int	get_b(int trgb)
-{
-	return (trgb & 0xFF);
+	res.x = vars.virt_min.x + ((x * (vars.virt_max.x - vars.virt_min.x)) / WIDTH);
+	res.y = vars.virt_min.y + ((y * (vars.virt_max.y - vars.virt_min.y)) / WIDTH);
+	return (res);
 }

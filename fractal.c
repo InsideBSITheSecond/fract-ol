@@ -6,7 +6,7 @@
 /*   By: insidebsi <insidebsi@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 19:14:24 by insidebsi         #+#    #+#             */
-/*   Updated: 2023/07/18 22:12:20 by insidebsi        ###   ########.fr       */
+/*   Updated: 2023/07/19 15:10:15 by insidebsi        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,10 +71,15 @@ void render(t_vars *vars, t_vec2d constant)
             float px = (float)(x - vars->render_size.x / 2) * scale;
             float py = (float)(y - vars->render_size.y / 2) * scale;
 
-            float iterations = computeIterationsSmooth((t_vec2d){.x = px, .y = py}, constant, 255);
+            float iterations = computeIterationsSmooth((t_vec2d){.x = px, .y = py}, constant, vars->max_iterations);
             //ft_printf("%i ", map);
-            my_mlx_pixel_put(vars, x, y, create_argb(0, iterations, iterations, iterations));
+            my_mlx_pixel_put(vars, x, y, create_argb(0, 
+                linmap(iterations, 0, vars->max_iterations, 125, 255),
+                linmap(iterations, 0, vars->max_iterations, 0, 100),
+                linmap(iterations, 0, vars->max_iterations, 0, 125)));
         }
         mlx_put_image_to_window(vars->mlx, vars->win, vars->img, 0, 0);
+	    mlx_string_put(vars->mlx, vars->win, 50, 50, YELLOW, ft_itoa(vars->max_iterations));
+
     }
 }

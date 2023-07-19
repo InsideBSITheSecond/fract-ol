@@ -36,16 +36,22 @@ void	makesquare(t_vars *vars, t_square square)
 
 int	key_hook(int keycode, t_vars *vars)
 {
-	if (keycode == KEY_UP)
+	printf("key: %i\n", keycode);
+	if (keycode == NUMPAD_8)
 		vars->constant.x += 0.05;
-	if (keycode == KEY_DOWN)
+	if (keycode == NUMPAD_2)
 		vars->constant.x -= 0.05;
-	if (keycode == KEY_LEFT)
+	if (keycode == NUMPAD_4)
 		vars->constant.y -= 0.05;
-	if (keycode == KEY_RIGHT)
+	if (keycode == NUMPAD_6)
 		vars->constant.y += 0.05;
+	if (keycode == NUMPAD_7)
+		vars->max_iterations -= 10;
+	if (keycode == NUMPAD_9)
+		vars->max_iterations += 10;
+	if (keycode == KEY_ESC || keycode == KEY_X)
+		mlx_destroy_window(vars->mlx, vars->win);
 
-	printf("%f %f\n", vars->constant.x, vars->constant.y);
 	return (0);
 }
 
@@ -62,23 +68,26 @@ int	render_next_frame(t_vars *vars)
 	t_square	square;
 
 	render(vars, vars->constant);
-	//mlx_put_image_to_window(vars->mlx, vars->win, vars->img, 0, 0);
 	return (0);
 }
 
-int	main(void)
+int	main(int argc, char **argv)
 {
 	t_vars	vars;
 
 	vars.render_size = (t_ivec2d){.x = 500, .y = 500};
 	vars.constant = (t_vec2d){.x = -0.75, .y = 0.05};
+	vars.max_iterations = ft_atoi(argv[1]);
+	vars.virt_min = (t_vec2d){.x = -2, .y = -2};
+	vars.virt_max = (t_vec2d){.x = 2, .y = 2};
+	vars.zoom;
 
 	vars.mlx = mlx_init();
 	vars.win = mlx_new_window(vars.mlx, vars.render_size.x, vars.render_size.y, "UwU");
 	vars.img= mlx_new_image(vars.mlx, vars.render_size.x, vars.render_size.y);
 	vars.addr = mlx_get_data_addr(vars.img, &vars.bits_per_pixel, &vars.line_length, &vars.endian);
 
-
+	mlx_do_key_autorepeaton(vars.mlx);
 	mlx_key_hook(vars.win, key_hook, &vars);
 	mlx_mouse_hook(vars.win, mouse_hook, &vars);
 	mlx_loop_hook(vars.mlx, render_next_frame, &vars);

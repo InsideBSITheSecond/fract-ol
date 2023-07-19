@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fractol.h"
+#include "../includes/fractol.h"
 
 int squareWidth = 50;
 int squareHeight = 50;
@@ -23,32 +23,41 @@ void	my_mlx_pixel_put(t_vars *vars, int x, int y, int color)
 	*(unsigned int*)dst = color;
 }
 
-void	makesquare(t_vars *vars, t_square square)
-{
-	for (int i = square.startX; i <= square.endX; i++)
-	{
-		for (int j = square.startY; j <= square.endY; j++)
-		{
-			my_mlx_pixel_put(vars, i, j, square.color);
-		}
-	}
-}
-
 int	key_hook(int keycode, t_vars *vars)
 {
 	printf("key: %i\n", keycode);
-	if (keycode == NUMPAD_8)
-		vars->constant.x += 0.05;
-	if (keycode == NUMPAD_2)
-		vars->constant.x -= 0.05;
-	if (keycode == NUMPAD_4)
-		vars->constant.y -= 0.05;
-	if (keycode == NUMPAD_6)
-		vars->constant.y += 0.05;
+	if (keycode == KEY_LEFT)
+	{
+		vars->virt_min.x -= 0.15 * vars->zoom;
+		vars->virt_max.x -= 0.15 * vars->zoom;;
+	}
+	if (keycode == KEY_RIGHT)
+	{
+		vars->virt_min.x += 0.15 * vars->zoom;
+		vars->virt_max.x += 0.15 * vars->zoom;;
+	}
+	if (keycode == KEY_UP)
+	{
+		vars->virt_min.y -= 0.15 * vars->zoom;
+		vars->virt_max.y -= 0.15 * vars->zoom;;
+	}
+	if (keycode == KEY_DOWN)
+	{
+		vars->virt_min.y += 0.15 * vars->zoom;
+		vars->virt_max.y += 0.15 * vars->zoom;;
+	}
+	if (keycode == NUMPAD_PLUS)
+		ft_zoom(WIDTH / 2, HEIGHT / 2, vars, 1);
+	if (keycode == NUMPAD_MINUS)
+		ft_zoom(WIDTH / 2, HEIGHT / 2, vars, 0);
 	if (keycode == NUMPAD_7)
 		vars->max_iterations -= 10;
 	if (keycode == NUMPAD_9)
 		vars->max_iterations += 10;
+	if (keycode == NUMPAD_4)
+		vars->fract.mandelbrot -= 1;
+	if (keycode == NUMPAD_6)
+		vars->fract.mandelbrot += 1;
 	if (keycode == KEY_ESC || keycode == KEY_X)
 		mlx_destroy_window(vars->mlx, vars->win);
 
@@ -65,9 +74,9 @@ int mouse_hook(int code, t_vars *vars)
 
 int	render_next_frame(t_vars *vars)
 {
-	t_square	square;
-
-	render(vars, vars->constant);
+	render(vars);
+	mlx_put_image_to_window(vars->mlx, vars->win, vars->img, 0, 0);
+	mlx_string_put(vars->mlx, vars->win, 50, 50, YELLOW, ft_itoa(vars->max_iterations));
 	return (0);
 }
 
@@ -75,12 +84,15 @@ int	main(int argc, char **argv)
 {
 	t_vars	vars;
 
-	vars.render_size = (t_ivec2d){.x = 500, .y = 500};
+	vars.render_size = (t_ivec2d){.x = WIDTH, .y = HEIGHT};
 	vars.constant = (t_vec2d){.x = -0.75, .y = 0.05};
 	vars.max_iterations = ft_atoi(argv[1]);
 	vars.virt_min = (t_vec2d){.x = -2, .y = -2};
 	vars.virt_max = (t_vec2d){.x = 2, .y = 2};
-	vars.zoom;
+	vars.fract.mandelbrot = 2;
+	vars.zoom = 1.0f;
+	vars.palette = 2;
+	vars.function = &ft_mandelbrot_math;
 
 	vars.mlx = mlx_init();
 	vars.win = mlx_new_window(vars.mlx, vars.render_size.x, vars.render_size.y, "UwU");

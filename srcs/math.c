@@ -6,13 +6,13 @@
 /*   By: insidebsi <insidebsi@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 15:35:42 by insidebsi         #+#    #+#             */
-/*   Updated: 2023/07/19 16:47:39 by insidebsi        ###   ########.fr       */
+/*   Updated: 2023/07/20 19:43:14 by insidebsi        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fractol.h"
 
-t_vec2d	virtual_to_real(t_vars *vars, int x, int y)
+t_vec2d	virtual_to_real(t_state *vars, int x, int y)
 {
 	t_vec2d	res;
 

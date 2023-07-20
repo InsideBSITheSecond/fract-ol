@@ -6,7 +6,7 @@
 #    By: insidebsi <insidebsi@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/20 14:22:16 by llegrand          #+#    #+#              #
-#    Updated: 2023/07/19 17:33:11 by insidebsi        ###   ########.fr        #
+#    Updated: 2023/07/20 21:07:28 by insidebsi        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,12 +20,12 @@ ARARGS := -crs
 MLX = minilibx-linux
 OSX_BULLSHIT = #__.SYMDEF __.SYMDEF\ SORTED
 
-SRCS := srcs/main.c srcs/color.c srcs/fractal.c srcs/math.c
+SRCS := main.c srcs/color.c srcs/fractal.c srcs/hooks.c srcs/math.c srcs/render.c srcs/worker.c
 INCLS := includes/colors.h includes/fractol.h
 NAME := fractol.out
 
 $(NAME) : libft.a $(SRCS) $(INCLS)
-	$(CC) $(SRCS) $(CCARGS) -Iincludes -L. -lft -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -O3 -o $(NAME)
+	$(CC) $(SRCS) $(CCARGS) -Iincludes -L. -lft -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -lpthread -O3 -o $(NAME)
 
 exe : $(NAME)
 	./$(NAME) 50

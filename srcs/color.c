@@ -6,7 +6,7 @@
 /*   By: insidebsi <insidebsi@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 22:06:49 by insidebsi         #+#    #+#             */
-/*   Updated: 2023/07/19 17:07:02 by insidebsi        ###   ########.fr       */
+/*   Updated: 2023/07/20 18:50:40 by insidebsi        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@ int	create_argb(int a, int r, int g, int b)
 	return (a << 24 | r << 16 | g << 8 | b);
 }
 
-int	get_a(int trgb)
+/*int	get_a(int trgb)
 {
 	return ((trgb >> 24) & 0xFF);
-}
+}*/
 
 int	get_r(int trgb)
 {

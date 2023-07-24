@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/fractol.h"
+#include "includes/fractol.h"
 
 int	main(int argc, char **argv)
 {
@@ -32,7 +32,7 @@ int	main(int argc, char **argv)
 		return (0);
 	}
 
-	vars.screenBlocks = divideScreen(WIDTH, HEIGHT, sqrt(NUM_THREADS), sqrt(NUM_THREADS));
+	vars.screenblocks = dividescreen(WIDTH, HEIGHT, sqrt(NUM_THREADS), sqrt(NUM_THREADS));
 	vars.render_size = (t_ivec2d){.x = WIDTH, .y = HEIGHT};
 	vars.constant = (t_vec2d){.x = -0.75, .y = 0.05};
 	vars.max_iterations = ft_atoi(argv[1]);

@@ -1,7 +1,6 @@
 *.o
 *.a
 *.out
-fractal.c
 .gitignore
 libft
 main

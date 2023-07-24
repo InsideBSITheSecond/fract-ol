@@ -3,29 +3,47 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: insidebsi <insidebsi@student.42.fr>        +#+  +:+       +#+         #
+#    By: llegrand <llegrand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/20 14:22:16 by llegrand          #+#    #+#              #
-#    Updated: 2023/07/20 21:07:28 by insidebsi        ###   ########.fr        #
+#    Updated: 2023/07/24 18:50:16 by llegrand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
+UNAME := $(shell uname)
+
 CC := gcc
 CCARGS := #-Wall -Werror -Wextra
-LXARGS = -lX11 -lXxf86vm -lXext 
+
+LNXARGS := -Iincludes -L. -lft -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -lpthread -O3
+LNXINCL := includes/keycodes_lnx.h
+OSXARGS := -Iincludes -L. -lft -Lmlx_osx -lmlx_osx -L/usr/lib -Imlx_osx -framework OpenGL -framework AppKit -lm -lz -lpthread -O3
+OSXINCL := includes/keycodes_osx.h
 
 AR := ar
 ARARGS := -crs		
 
-MLX = minilibx-linux
+#MLX = minilibx-linux
 OSX_BULLSHIT = #__.SYMDEF __.SYMDEF\ SORTED
 
 SRCS := main.c srcs/color.c srcs/fractal.c srcs/hooks.c srcs/math.c srcs/render.c srcs/worker.c
 INCLS := includes/colors.h includes/fractol.h
 NAME := fractol.out
 
+
+ifeq ($(UNAME), Linux)
+	CCARGS += $(LNXARGS)
+	INCLS += $(LNXINCL)
+endif
+ifeq ($(UNAME), Darwin)
+	CCARGS += $(OSXARGS)
+	INCLS += $(OSXINCL)
+endif
+
 $(NAME) : libft.a $(SRCS) $(INCLS)
-	$(CC) $(SRCS) $(CCARGS) -Iincludes -L. -lft -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -lpthread -O3 -o $(NAME)
+	@echo "$(UNAME) detected. changing args according to target's needs..."
+	@echo "compiling in progress please wait..."
+	$(CC) $(SRCS) $(CCARGS) -o $(NAME)
 
 exe : $(NAME)
 	./$(NAME) 50

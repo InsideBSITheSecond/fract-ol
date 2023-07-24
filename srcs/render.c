@@ -6,7 +6,7 @@
 /*   By: llegrand <llegrand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 18:49:45 by insidebsi         #+#    #+#             */
-/*   Updated: 2023/07/24 18:08:38 by llegrand         ###   ########.fr       */
+/*   Updated: 2023/07/24 18:54:18 by llegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,10 @@ t_region	*dividescreen(int screenwidth, int screenheight, int nbx, int nby)
 	blocksize = (t_ivec2d){.x = screenwidth / nbx, .y = screenheight / nby};
 	blocks = (t_region *)malloc(nbx * nby * sizeof(t_region));
 	i = 0;
-	for (int y = 0; y < nby; y++) {
-		for (int x = 0; x < nbx; x++) {
+	for (int y = 0; y < nby; y++)
+	{
+		for (int x = 0; x < nbx; x++)
+		{
 			blocks[i].sx = x * blocksize.x;
 			blocks[i].sy = y * blocksize.y;
 			blocks[i].ex = (x + 1) * blocksize.x - 1;
@@ -75,7 +77,8 @@ int	render(t_state *vars)
 
 	if (vars->render_lock == 0)
 	{
-		for (int i = 0; i != NUM_THREADS; i++) {
+		for (int i = 0; i != NUM_THREADS; i++)
+		{
 			workerdata[i].region = vars->screenblocks[i];
 			workerdata[i].vars = vars;
 			if (pthread_create(&thread[i], NULL,
@@ -85,7 +88,8 @@ int	render(t_state *vars)
 				return (0);
 			}
 		}
-		for (int i = 0; i != NUM_THREADS; i++) {
+		for (int i = 0; i != NUM_THREADS; i++)
+		{
 			if (pthread_join(thread[i], NULL) != 0)
 			{
 				printf("ERROR : pthread join failed.\n");

@@ -14,6 +14,7 @@
 
 int	main(int argc, char **argv)
 {
+	(void)argc;
 	t_state	vars;
 
 	if (round(sqrt(NUM_THREADS)) != sqrt(NUM_THREADS))

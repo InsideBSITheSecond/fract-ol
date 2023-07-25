@@ -1,6 +1,4 @@
 *.o
 *.a
 *.out
-.gitignore
-libft
-main
+*.md

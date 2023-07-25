@@ -6,7 +6,7 @@
 #    By: llegrand <llegrand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/20 14:22:16 by llegrand          #+#    #+#              #
-#    Updated: 2023/07/25 17:45:19 by llegrand         ###   ########.fr        #
+#    Updated: 2023/07/25 18:01:05 by llegrand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,11 +32,11 @@ ARARGS := -crs
 
 # linux-specific compiler args
 LNXARGS := -Iincludes -L. -lft -Lmlx_lnx -lmlx_lnx -L/usr/lib -Imlx_lnx -lXext -lX11 -lm -lz -lpthread -O3
-LNXINCL := includes/keycodes_lnx.h
+#LNXINCL := includes/keycodes_lnx.h
 
 # osx-specific compiler args
 OSXARGS := -Iincludes -L. -lft -Lmlx_osx -lmlx_osx -L/usr/lib -Imlx_osx -framework OpenGL -framework AppKit -lm -lz -lpthread -O3
-OSXINCL := includes/keycodes_osx.h
+#OSXINCL := includes/keycodes_osx.h
 
 # source files
 SRCS := main.c srcs/color.c srcs/fractal.c srcs/hooks.c srcs/math.c srcs/render.c srcs/worker.c
@@ -85,7 +85,7 @@ endif
 #
 # **************************************************************************** #
 
-$(NAME) : libft.a $(MLX).a $(SRCS) $(INCLS)
+$(NAME) : libft.a lib$(MLX).a $(SRCS) $(INCLS)
 	@echo "$(UNAME) detected. changing args according to target's needs..."
 	@echo "compiling in progress please wait..."
 	$(CC) $(SRCS) $(CCARGS) -o $(NAME)
@@ -100,30 +100,22 @@ libft.a : libft/Makefile
 libft/Makefile :
 	git submodule update --init libft
 
-$(MLX).a : $(MLX)/Makefile
+lib$(MLX).a : $(MLX)/Makefile
 	cd $(MLX) && $(MAKE)
 	cp $(MLX)/libmlx.a ./lib$(MLX).a
 
 $(MLX)/Makefile :
 	git submodule update --init $(MLX)
 
-libftmlx.a : build/libft.a build/libmlx.a
-	cd build && ar -x libft.a && ar -x libmlx.a
-	cd build && ar -crs libftmlx.a *.o $(OSX_BULLSHIT)
-	cd build && rm *.o $(OSX_BULLSHIT)
-	cp build/libftmlx.a .
-	
-%.o : %.c
-	$(CC) $(CCARGS) -I ./includes -c $< -o ${<:.c=.o}
-
 clean :
 	rm -f $(OBJS) $(BOBJS)
 	cd libft && $(MAKE) clean
 
 fclean : clean
-	rm -f $(NAME) libftmlx.a
-	rm -rf build
+	rm -f $(NAME) libft.a lib$(MLX).a
 	cd libft && $(MAKE) fclean
+	cd $(MLX) && $(MAKE) clean
+	rm -f $(MLX)/libmlx.a
 
 all : $(NAME)
 

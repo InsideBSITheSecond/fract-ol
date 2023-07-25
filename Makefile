@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: insidebsi <insidebsi@student.42.fr>        +#+  +:+       +#+         #
+#    By: llegrand <llegrand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/20 14:22:16 by llegrand          #+#    #+#              #
-#    Updated: 2023/07/24 21:04:39 by insidebsi        ###   ########.fr        #
+#    Updated: 2023/07/25 17:34:44 by llegrand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ AR := ar
 ARARGS := -crs		
 
 # linux-specific compiler args
-LNXARGS := -Iincludes -L. -lft -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -lpthread -O3
+LNXARGS := -Iincludes -L. -lft -Lmlx_lnx -lmlx_lnx -L/usr/lib -Imlx_lnx -lXext -lX11 -lm -lz -lpthread -O3
 LNXINCL := includes/keycodes_lnx.h
 
 # osx-specific compiler args
@@ -83,7 +83,7 @@ endif
 #
 # **************************************************************************** #
 
-$(NAME) : libft.a $(SRCS) $(INCLS)
+$(NAME) : libft.a $(MLX).a $(SRCS) $(INCLS)
 	@echo "$(UNAME) detected. changing args according to target's needs..."
 	@echo "compiling in progress please wait..."
 	$(CC) $(SRCS) $(CCARGS) -o $(NAME)
@@ -91,16 +91,18 @@ $(NAME) : libft.a $(SRCS) $(INCLS)
 exe : $(NAME)
 	./$(NAME) 50
 
-build :
-	mkdir build
-
-build/libmlx.a : minilibx build
-	cd $(MLX) && $(MAKE)
-	cp $(MLX)/libmlx.a build/
-
-libft.a : libft build
+libft.a : libft/Makefile
 	cd libft && $(MAKE)
 	cp libft/libft.a .
+
+libft/Makefile :
+	git submodule update libft
+
+$(MLX).a :
+	cd $(MLX) && $(MAKE)
+
+$(MLX)/Makefile :
+	git submodule update $(MLX)
 
 libftmlx.a : build/libft.a build/libmlx.a
 	cd build && ar -x libft.a && ar -x libmlx.a

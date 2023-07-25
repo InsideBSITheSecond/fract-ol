@@ -6,7 +6,7 @@
 #    By: llegrand <llegrand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/20 14:22:16 by llegrand          #+#    #+#              #
-#    Updated: 2023/07/25 17:34:44 by llegrand         ###   ########.fr        #
+#    Updated: 2023/07/25 17:45:19 by llegrand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,10 +65,12 @@ NAME := fractol.out
 ifeq ($(UNAME), Linux)
 	CCARGS += $(LNXARGS)
 	INCLS += $(LNXINCL)
+	MLX := mlx_lnx
 endif
 ifeq ($(UNAME), Darwin)
 	CCARGS += $(OSXARGS)
 	INCLS += $(OSXINCL)
+	MLX := mlx_osx
 endif
 
 
@@ -96,13 +98,14 @@ libft.a : libft/Makefile
 	cp libft/libft.a .
 
 libft/Makefile :
-	git submodule update libft
+	git submodule update --init libft
 
-$(MLX).a :
+$(MLX).a : $(MLX)/Makefile
 	cd $(MLX) && $(MAKE)
+	cp $(MLX)/libmlx.a ./lib$(MLX).a
 
 $(MLX)/Makefile :
-	git submodule update $(MLX)
+	git submodule update --init $(MLX)
 
 libftmlx.a : build/libft.a build/libmlx.a
 	cd build && ar -x libft.a && ar -x libmlx.a

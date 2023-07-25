@@ -1,3 +1,9 @@
 [submodule "libft"]
 	path = libft
 	url = https://github.com/InsideBSITheSecond/libft
+[submodule "mlx_osx"]
+	path = mlx_osx
+	url = https://github.com/mgkgng/minilibx-mac-osx-debugged
+[submodule "mlx_lnx"]
+	path = mlx_lnx
+	url = https://github.com/42Paris/minilibx-linux

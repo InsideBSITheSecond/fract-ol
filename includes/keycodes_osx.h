@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef KEYCODES_OSX_H
-# define KEYCODES_OSX_H
+#ifndef KEYCODES_H
+# define KEYCODES_H
 
 # define NUMPAD_9 92
 # define NUMPAD_8 91

@@ -6,9 +6,13 @@
 #    By: llegrand <llegrand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/20 14:22:16 by llegrand          #+#    #+#              #
-#    Updated: 2023/07/25 18:01:05 by llegrand         ###   ########.fr        #
+#    Updated: 2023/07/25 19:51:11 by llegrand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
+# make re not working as intended
+# try fresh runs on osx & lnx
+
 
 # **************************************************************************** #
 #                 _       _     _           
@@ -73,8 +77,6 @@ ifeq ($(UNAME), Darwin)
 	MLX := mlx_osx
 endif
 
-
-
 # **************************************************************************** #
 #                 _    _                             _                 
 #  ___ ___   ___ | | _(_)_ __   __ _   _ __ ___  ___(_)_ __   ___  ___ 
@@ -86,8 +88,6 @@ endif
 # **************************************************************************** #
 
 $(NAME) : libft.a lib$(MLX).a $(SRCS) $(INCLS)
-	@echo "$(UNAME) detected. changing args according to target's needs..."
-	@echo "compiling in progress please wait..."
 	$(CC) $(SRCS) $(CCARGS) -o $(NAME)
 
 exe : $(NAME)
@@ -105,7 +105,10 @@ lib$(MLX).a : $(MLX)/Makefile
 	cp $(MLX)/libmlx.a ./lib$(MLX).a
 
 $(MLX)/Makefile :
-	git submodule update --init $(MLX)
+	wget https://cdn.intra.42.fr/document/document/12993/minilibx_opengl.tgz
+	tar -Zxvf minilibx_opengl.tgz
+	mv minilibx_opengl_20191021 mlx_osx
+	rm minilibx_opengl.tgz
 
 clean :
 	rm -f $(OBJS) $(BOBJS)
@@ -119,7 +122,7 @@ fclean : clean
 
 all : $(NAME)
 
-re :	fclean all
+re : fclean all
 
 #bonus : $(OBJS) $(BOBJS)
 #	$(AR) $(ARARGS) $(NAME) $(OBJS) $(BOBJS)

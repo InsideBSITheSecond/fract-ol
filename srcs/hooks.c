@@ -6,12 +6,19 @@
 /*   By: llegrand <llegrand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 18:50:03 by insidebsi         #+#    #+#             */
-/*   Updated: 2023/07/24 17:47:09 by llegrand         ###   ########.fr       */
+/*   Updated: 2023/07/26 19:17:29 by llegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fractol.h"
 #include "../includes/keycodes_osx.h"
+
+void consoleprint(t_state *vars)
+{
+	printf("virt_max (x/y): %f/%f\n", vars->virt_max.x, vars->virt_max.y);
+	printf("virt_min (x/y): %f/%f\n", vars->virt_min.x, vars->virt_min.y);
+	printf("zoom: %f\n", vars->zoom);
+}
 
 int	key_hook(int keycode, t_state *vars)
 {
@@ -22,42 +29,64 @@ int	key_hook(int keycode, t_state *vars)
 		vars->virt_min.x -= 0.15 * vars->zoom;
 		vars->virt_max.x -= 0.15 * vars->zoom;
 	}
-	if (keycode == KEY_RIGHT)
+	else if (keycode == KEY_RIGHT)
 	{
 		vars->virt_min.x += 0.15 * vars->zoom;
 		vars->virt_max.x += 0.15 * vars->zoom;
 	}
-	if (keycode == KEY_UP)
+	else if (keycode == KEY_UP)
 	{
 		vars->virt_min.y -= 0.15 * vars->zoom;
 		vars->virt_max.y -= 0.15 * vars->zoom;
 	}
-	if (keycode == KEY_DOWN)
+	else if (keycode == KEY_DOWN)
 	{
 		vars->virt_min.y += 0.15 * vars->zoom;
 		vars->virt_max.y += 0.15 * vars->zoom;
 	}
-	if (keycode == NUMPAD_PLUS)
+	else if (keycode == NUMPAD_PLUS)
 		ft_zoom(WIDTH / 2, HEIGHT / 2, vars, 1);
-	if (keycode == NUMPAD_MINUS)
+	else if (keycode == NUMPAD_MINUS)
 		ft_zoom(WIDTH / 2, HEIGHT / 2, vars, 0);
-	if (keycode == NUMPAD_7)
+	else if (keycode == NUMPAD_7)
 		vars->max_iterations -= 10;
-	if (keycode == NUMPAD_9)
+	else if (keycode == NUMPAD_9)
 		vars->max_iterations += 10;
-	if (keycode == NUMPAD_4)
+	else if (keycode == NUMPAD_4)
 		vars->fract.mandelbrot -= 1;
-	if (keycode == NUMPAD_6)
+	else if (keycode == NUMPAD_6)
 		vars->fract.mandelbrot += 1;
-	if (keycode == KEY_ESC || keycode == KEY_X)
+	else if (keycode == KEY_ESC || keycode == KEY_X)
 		mlx_destroy_window(vars->mlx, vars->win);
+	else if (keycode == KEY_R)
+	{
+		vars->virt_min = (t_vec2d){.x = -2, .y = -2};
+		vars->virt_max = (t_vec2d){.x = 2, .y = 2};
+		vars->zoom = 1.0f;
+	}
+	else if (keycode == KEY_1)
+		switch_fract(vars, mandelbrot);
+	else if (keycode == KEY_2)
+		switch_fract(vars, julia);
+	else if (keycode == KEY_3)
+		switch_fract(vars, burning);
+	else if (keycode == KEY_P)
+		consoleprint(vars);
 	return (0);
 }
 
-int	mouse_hook(int code, t_state *vars)
+int	mouse_hook(int code, int x, int y, t_state *vars)
 {
-	(void)code;
-	(void)vars;
-	ft_printf("Hello from mouse_hook!\n");
+	vars->render_lock = 0;
+	if (code == 1)
+		printf("mouse left\n");
+	else if (code == 2)
+		printf("mouse right\n");
+	else if (code == 3)
+		printf("mouse middle\n");
+	else if (code == 4)
+		ft_zoom(x, y, vars, 1);
+	else if (code == 5)
+		ft_zoom(x, y, vars, 0);
 	return (0);
 }

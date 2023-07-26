@@ -6,14 +6,21 @@
 #    By: llegrand <llegrand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/20 14:22:16 by llegrand          #+#    #+#              #
-#    Updated: 2023/07/25 19:54:08 by llegrand         ###   ########.fr        #
+#    Updated: 2023/07/26 19:27:34 by llegrand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
+# general:
 # make re not working as intended
 # try fresh runs on osx & lnx
-# 
 
+# controls improvements:
+# NEED TO MAKE IT SO WE CAN DRAG
+# MIDDLE MOUSE CENTER ON MUOSE POS
+# KEY REPEAT
+
+# misc:
+# load julia depending on current mandel pos
 
 # **************************************************************************** #
 #                 _       _     _           
@@ -44,7 +51,7 @@ OSXARGS := -Iincludes -L. -lft -Lmlx_osx -lmlx_osx -L/usr/lib -Imlx_osx -framewo
 #OSXINCL := includes/keycodes_osx.h
 
 # source files
-SRCS := main.c srcs/color.c srcs/fractal.c srcs/hooks.c srcs/math.c srcs/render.c srcs/worker.c
+SRCS := main.c srcs/color.c srcs/fractal.c srcs/hooks.c srcs/math.c srcs/render.c srcs/worker.c srcs/init.c
 
 # include files
 INCLS := includes/colors.h includes/fractol.h
@@ -88,65 +95,57 @@ endif
 #
 # **************************************************************************** #
 
+# main program
 $(NAME) : libft.a lib$(MLX).a $(SRCS) $(INCLS)
 	$(CC) $(SRCS) $(CCARGS) -o $(NAME)
 
+# compile main program and run it
 exe : $(NAME)
 	./$(NAME) 50
 
+dep : libft.a lib$(MLX).a
+	
+# libft compilation
 libft.a : libft/Makefile
 	cd libft && $(MAKE)
 	cp libft/libft.a .
 
+# get libft submodule from my github
 libft/Makefile :
 	git submodule update --init libft
 
+# compile mlx
 lib$(MLX).a : $(MLX)/Makefile
 	cd $(MLX) && $(MAKE)
 	cp $(MLX)/libmlx.a ./lib$(MLX).a
 
-$(MLX)/Makefile :
+# get mlx_osx from intra CDN
+mlx_osx/Makefile :
 	wget https://cdn.intra.42.fr/document/document/12993/minilibx_opengl.tgz
 	tar -Zxvf minilibx_opengl.tgz
 	mv minilibx_opengl_20191021 mlx_osx
 	rm minilibx_opengl.tgz
 
-clean :
-	rm -f $(OBJS) $(BOBJS)
-	cd libft && $(MAKE) clean
+# get mlx_lnx submodule from 42Paris github 
+mlx_lnx/Makefile :
+	git submodule update --init mlx_lnx
 
+# partial clean
+clean :
+	cd libft && $(MAKE) clean
+	cd $(MLX) && $(MAKE) clean
+
+# full clean (mlx dont have an fclean target so we do it ourselves)
 fclean : clean
 	rm -f $(NAME) libft.a lib$(MLX).a
 	cd libft && $(MAKE) fclean
 	cd $(MLX) && $(MAKE) clean
 	rm -f $(MLX)/libmlx.a
 
-all : $(NAME)
-
+# recompile
 re : fclean all
 
-#bonus : $(OBJS) $(BOBJS)
-#	$(AR) $(ARARGS) $(NAME) $(OBJS) $(BOBJS)
-#
-#show :
-#	reset
-#	@echo $(SRCS)
-#	@echo -_-_-_-_-_-_-_-_-_-_-
-#	@echo $(OBJS)
-#	@echo -_-_-_-_-_-_-_-_-_-_-
-#	@echo $(BONUS)
-#	@echo -_-_-_-_-_-_-_-_-_-_-
-#	@echo $(BOBJS)
-#	@echo -_-_-_-_-_-_-_-_-_-_-
-#	@echo $(CC) $(CCARGS) -I./ -o $(<:.c=.o)
-#	@echo -_-_-_-_-_-_-_-_-_-_-
-#	@echo $(AR) $(ARARGS) $(NAME) $(OBJS)
-#
-#test :
-#	gcc ${SRCS} -g -o a.out
-#	./a.out ${arg}
-
-.PHONY : clean fclean all re 
+all : $(NAME)
 
 # **************************************************************************** #
 #     _               _     _ _ _                            _   
@@ -159,4 +158,20 @@ re : fclean all
 # **************************************************************************** #
 
 spin :
-	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.PHONY : clean fclean all re 

@@ -39,10 +39,10 @@ int	main(int argc, char **argv)
 	vars.max_iterations = ft_atoi(argv[1]);
 	vars.virt_min = (t_vec2d){.x = -2, .y = -2};
 	vars.virt_max = (t_vec2d){.x = 2, .y = 2};
-	vars.fract.mandelbrot = 2;
 	vars.zoom = 1.0f;
 	vars.palette = 2;
-	vars.function = &ft_mandelbrot_math;
+	vars.drawdebug = 0;
+	switch_fract(&vars, mandelbrot);
 
 	vars.mlx = mlx_init();
 	vars.win = mlx_new_window(vars.mlx, vars.render_size.x, vars.render_size.y, "UwU");

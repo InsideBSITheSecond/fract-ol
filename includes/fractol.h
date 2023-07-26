@@ -6,7 +6,7 @@
 /*   By: llegrand <llegrand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 19:15:39 by insidebsi         #+#    #+#             */
-/*   Updated: 2023/07/24 18:08:29 by llegrand         ###   ########.fr       */
+/*   Updated: 2023/07/26 19:00:15 by llegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,12 @@
 # define NUM_THREADS 16
 # define WIDTH 1600
 # define HEIGHT 800
+
+typedef enum e_fractals{
+	mandelbrot,
+	julia,
+	burning
+}				t_fractals;
 
 typedef struct s_vec2d {
 	double	x;
@@ -76,8 +82,14 @@ typedef struct s_state {
 	t_ivec2d	render_size;
 	t_vec2d		constant;
 	t_region	*screenblocks;
+	int			drawdebug;
 	float		(*function)(struct s_state *vars, int x, int y, int max_it);
 }				t_state;
+
+typedef struct s_vdebug {
+	t_region	region;
+	void		(*function)(t_state *vars, t_region region);
+}				t_vdebug;
 
 typedef struct s_workerData {
 	t_region	region;
@@ -94,11 +106,13 @@ int			which_colour(int it, int palette);
 
 //fractal.c
 t_vec2d		mandelbrot_calc(t_fracts var, t_vec2d val, t_vec2d constant);
-float		ft_mandelbrot_math(t_state *vars, int x, int y, int max_iterations);
+float		mandelbrot_math(t_state *vars, int x, int y, int max_iterations);
+float		julia_math(t_state *vars, int x, int y, int max_iterations);
+float		burning_ship_math(t_state *vars, int x, int y, int max_iterations);
 
 //hooks.c
 int			key_hook(int keycode, t_state *vars);
-int			mouse_hook(int code, t_state *vars);
+int			mouse_hook(int code, int x, int y, t_state *vars);
 
 //math.c
 t_vec2d		virtual_to_real(t_state *vars, int x, int y);
@@ -115,9 +129,13 @@ t_vec2d		power_vec2d(t_vec2d a, int n);
 void		ft_zoom(int x, int y, t_state *vars, int isplus);
 void		my_mlx_pixel_put(t_state *vars, int x, int y, int color);
 t_region	*dividescreen(int screenWidth, int screenHeight, int nbx, int nby);
-int			render(t_state *vars);
+int			render(t_state *vars, t_vdebug debug);
 
 //threads.c
 void		*renderworker(void *workerData);
+
+//init.c
+void		init_fracts(t_state *vars);
+void	switch_fract(t_state *vars, t_fractals new);
 
 #endif

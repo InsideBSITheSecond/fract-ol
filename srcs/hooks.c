@@ -6,7 +6,7 @@
 /*   By: llegrand <llegrand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 18:50:03 by insidebsi         #+#    #+#             */
-/*   Updated: 2023/07/26 19:17:29 by llegrand         ###   ########.fr       */
+/*   Updated: 2023/07/31 16:54:09 by llegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void consoleprint(t_state *vars)
 	printf("virt_max (x/y): %f/%f\n", vars->virt_max.x, vars->virt_max.y);
 	printf("virt_min (x/y): %f/%f\n", vars->virt_min.x, vars->virt_min.y);
 	printf("zoom: %f\n", vars->zoom);
+	printf("debug: %i\n", vars->debug.drawdebug);
 }
 
 int	key_hook(int keycode, t_state *vars)
@@ -56,6 +57,7 @@ int	key_hook(int keycode, t_state *vars)
 		vars->fract.mandelbrot -= 1;
 	else if (keycode == NUMPAD_6)
 		vars->fract.mandelbrot += 1;
+		
 	else if (keycode == KEY_ESC || keycode == KEY_X)
 		mlx_destroy_window(vars->mlx, vars->win);
 	else if (keycode == KEY_R)
@@ -64,14 +66,18 @@ int	key_hook(int keycode, t_state *vars)
 		vars->virt_max = (t_vec2d){.x = 2, .y = 2};
 		vars->zoom = 1.0f;
 	}
+	
 	else if (keycode == KEY_1)
 		switch_fract(vars, mandelbrot);
 	else if (keycode == KEY_2)
 		switch_fract(vars, julia);
 	else if (keycode == KEY_3)
 		switch_fract(vars, burning);
+		
 	else if (keycode == KEY_P)
 		consoleprint(vars);
+	else if (keycode == KEY_D)
+		vars->debug.drawdebug = 1 - vars->debug.drawdebug;
 	return (0);
 }
 

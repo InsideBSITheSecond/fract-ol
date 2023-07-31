@@ -6,7 +6,7 @@
 /*   By: llegrand <llegrand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 19:15:39 by insidebsi         #+#    #+#             */
-/*   Updated: 2023/07/26 19:00:15 by llegrand         ###   ########.fr       */
+/*   Updated: 2023/07/31 17:51:06 by llegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # include "../libft/includes/ft_printf.h"
 # include "../libft/includes/get_next_line.h"
 
-# define NUM_THREADS 16
+# define NUM_THREADS 1
 # define WIDTH 1600
 # define HEIGHT 800
 
@@ -62,7 +62,34 @@ typedef struct s_region {
 	int	sy;
 	int	ex;
 	int	ey;
+	int hollow;
 }				t_region;
+
+typedef struct s_circle {
+	int x;
+	int y;
+	int rad;
+	int hollow;
+}				t_circle;
+
+typedef struct	s_cross {
+	int x;
+	int y;
+	int size;
+	int space;
+}				t_cross;
+
+typedef struct s_text {
+	char	*str;
+	int		color;
+}				t_text;
+
+typedef struct s_debuginfo {
+	int			drawdebug;
+	t_region	*regions;
+	t_circle	*cicles;
+	t_text		*texts;
+}				t_debuginfo;
 
 typedef struct s_state {
 	void		*mlx;
@@ -82,14 +109,9 @@ typedef struct s_state {
 	t_ivec2d	render_size;
 	t_vec2d		constant;
 	t_region	*screenblocks;
-	int			drawdebug;
+	t_debuginfo	debug;
 	float		(*function)(struct s_state *vars, int x, int y, int max_it);
 }				t_state;
-
-typedef struct s_vdebug {
-	t_region	region;
-	void		(*function)(t_state *vars, t_region region);
-}				t_vdebug;
 
 typedef struct s_workerData {
 	t_region	region;
@@ -129,7 +151,7 @@ t_vec2d		power_vec2d(t_vec2d a, int n);
 void		ft_zoom(int x, int y, t_state *vars, int isplus);
 void		my_mlx_pixel_put(t_state *vars, int x, int y, int color);
 t_region	*dividescreen(int screenWidth, int screenHeight, int nbx, int nby);
-int			render(t_state *vars, t_vdebug debug);
+int			render(t_state *vars);
 
 //threads.c
 void		*renderworker(void *workerData);

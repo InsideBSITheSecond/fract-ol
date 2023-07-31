@@ -28,7 +28,6 @@
 				"-lm",
 				"-lz",
 				"-lpthread",
-				"-O3",
 				"-o",
 				"${fileDirname}/${fileBasenameNoExtension}"
 			],

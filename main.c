@@ -41,8 +41,10 @@ int	main(int argc, char **argv)
 	vars.virt_max = (t_vec2d){.x = 2, .y = 2};
 	vars.zoom = 1.0f;
 	vars.palette = 2;
-	vars.drawdebug = 0;
+	vars.render_lock = 0;
 	switch_fract(&vars, mandelbrot);
+
+	vars.debug.drawdebug = 1;
 
 	vars.mlx = mlx_init();
 	vars.win = mlx_new_window(vars.mlx, vars.render_size.x, vars.render_size.y, "UwU");

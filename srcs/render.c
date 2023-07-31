@@ -6,7 +6,7 @@
 /*   By: llegrand <llegrand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 18:49:45 by insidebsi         #+#    #+#             */
-/*   Updated: 2023/07/26 19:22:16 by llegrand         ###   ########.fr       */
+/*   Updated: 2023/07/31 17:54:33 by llegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,28 @@
 
 void squareZone(t_state *vars, t_region region)
 {
-	vars->drawdebug = 0;
 	for (int y = region.sy; y < region.ey; y++)
 	{
 		for (int x = region.sx; x < region.ex; x++)
 		{
-			my_mlx_pixel_put(vars, x, y, create_argb(0, 127, 0, 127));
+			if (region.hollow && ((y == region.sy || y == region.ey - 1) || (x == region.sx || x == region.ex - 1)))
+					my_mlx_pixel_put(vars, x, y, create_argb(0, 127, 0, 127));
+			else if (region.hollow == 0)
+				my_mlx_pixel_put(vars, x, y, create_argb(0, 127, 0, 127));
 		}
+	}
+}
+
+void circleZone(t_state *vars, t_circle circle)
+{
+	const double pi = 3.1415926535;
+	
+	double x1, y1;
+	for (double i = 0; i < 360; i += 0.1)
+	{
+		x1 = circle.rad * cos(i * pi / 180);
+		y1 = circle.rad * sin(i * pi / 180);
+		my_mlx_pixel_put(vars, circle.x + x1, circle.y + y1, create_argb(0, 127, 0, 127));
 	}
 }
 
@@ -47,8 +62,8 @@ void	ft_zoom(int x, int y, t_state *vars, int isplus)
 		vars->virt_min.y = vars->virt_min.y * zoom_fact
 			+ virt_pos.y * (1 - zoom_fact);
 	}
-	vars->drawdebug = 1;
-	render(vars, (t_vdebug){.function = &squareZone, .region = (t_region){.sx = x - 15, .ex = x + 15, .sy = y - 15, .ey = y + 15}});
+	vars->debug.drawdebug = 1;
+	render(vars);
 }
 
 void	my_mlx_pixel_put(t_state *vars, int x, int y, int color)
@@ -74,8 +89,8 @@ t_region	*dividescreen(int screenwidth, int screenheight, int nbx, int nby)
 		{
 			blocks[i].sx = x * blocksize.x;
 			blocks[i].sy = y * blocksize.y;
-			blocks[i].ex = (x + 1) * blocksize.x - 1;
-			blocks[i].ey = (y + 1) * blocksize.y - 1;
+			blocks[i].ex = (x + 1) * blocksize.x;
+			blocks[i].ey = (y + 1) * blocksize.y;
 			i++;
 		}
 	}
@@ -84,7 +99,19 @@ t_region	*dividescreen(int screenwidth, int screenheight, int nbx, int nby)
 	return (blocks);
 }
 
-int	render(t_state *vars, t_vdebug debug)
+void	renderdebug(t_state *vars)
+{
+	squareZone(vars, (t_region){.sx = 15, .sy = 15, .ex = 50, .ey = 50, .hollow = 1});
+	circleZone(vars, (t_circle){.x = WIDTH / 2, .y = HEIGHT / 2, .rad = 125});
+	
+	mlx_put_image_to_window(vars->mlx, vars->win, vars->img, 0, 0);
+
+	// text after img
+	mlx_string_put(vars->mlx, vars->win, 50, 50,
+		YELLOW, ft_strjoin("Iterations: ", (char *)ft_itoa(vars->max_iterations)));
+}
+
+int	render(t_state *vars)
 {
 	pthread_t		thread[NUM_THREADS];
 	t_workerData	workerdata[NUM_THREADS];
@@ -112,11 +139,10 @@ int	render(t_state *vars, t_vdebug debug)
 				return (0);
 			}
 		}
+		if (vars->debug.drawdebug == 1)
+			renderdebug(vars);
+		else
+			mlx_put_image_to_window(vars->mlx, vars->win, vars->img, 0, 0);
 	}
-	if (vars->drawdebug)
-		debug.function(vars, debug.region);
-	mlx_put_image_to_window(vars->mlx, vars->win, vars->img, 0, 0);
-	mlx_string_put(vars->mlx, vars->win, 50, 50,
-		YELLOW, ft_itoa(vars->max_iterations));
 	return (0);
 }

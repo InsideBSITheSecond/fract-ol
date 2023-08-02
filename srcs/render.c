@@ -6,7 +6,7 @@
 /*   By: insidebsi <insidebsi@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 18:49:45 by insidebsi         #+#    #+#             */
-/*   Updated: 2023/08/01 21:41:46 by insidebsi        ###   ########.fr       */
+/*   Updated: 2023/08/02 18:55:47 by insidebsi        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,15 +74,21 @@ t_region	*dividescreen(int screenwidth, int screenheight, int nbx, int nby)
 
 void	renderdebug(t_state *vars)
 {
-	drawsquare(vars, (t_region){.sx = 15, .sy = 15, .ex = 50, .ey = 50, .hollow = 1});
-	drawcircle(vars, (t_circle){.x = WIDTH / 2, .y = HEIGHT / 2, .rad = 125});
-	drawgraph(vars, 2, 2);
+	//drawsquare(vars, (t_region){.sx = 15, .sy = 15, .ex = 50, .ey = 50, .hollow = 1});
+	//drawcircle(vars, (t_circle){.x = WIDTH / 2, .y = HEIGHT / 2, .rad = 125});
+	t_ivec2d crd = real_to_virtual(vars, vars->debug.lasthit.x, vars->debug.lasthit.y);
+	if (vars->debug.drawgraph)
+		drawgraph(vars, 2, 2);
+
+	if (vars->debug.drawiter)
+		mandelbrot_math(vars, crd.x, crd.y, vars->max_iterations, 1);
 	
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->img, 0, 0);
 
 	// text after img
-	mlx_string_put(vars->mlx, vars->win, 50, 50,
-		YELLOW, ft_strjoin("Iterations: ", (char *)ft_itoa(vars->max_iterations)));
+	if (vars->debug.drawtext)
+		mlx_string_put(vars->mlx, vars->win, 50, 50,
+			YELLOW, ft_strjoin("Iterations: ", (char *)ft_itoa(vars->max_iterations)));
 }
 
 int	render(t_state *vars)

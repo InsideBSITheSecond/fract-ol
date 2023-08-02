@@ -6,7 +6,7 @@
 /*   By: insidebsi <insidebsi@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 18:58:33 by insidebsi         #+#    #+#             */
-/*   Updated: 2023/08/01 22:20:31 by insidebsi        ###   ########.fr       */
+/*   Updated: 2023/08/02 18:54:51 by insidebsi        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void draw_line_point(t_state *vars, int x, int y, int width) {
     }
 }
 
-void draw_line_with_width(t_state *vars, t_vec2d start, t_vec2d end, int width) {
+void draw_line_with_width(t_state *vars, t_ivec2d start, t_ivec2d end, int width) {
     int dx = abs(end.x - start.x);
     int dy = abs(end.y - start.y);
 
@@ -47,7 +47,7 @@ void draw_line_with_width(t_state *vars, t_vec2d start, t_vec2d end, int width) 
 
     if (start.x > end.x) {
         // Make sure the start point is always on the left.
-        t_vec2d temp = start;
+        t_ivec2d temp = start;
         start = end;
         end = temp;
     }
@@ -102,17 +102,18 @@ void drawcircle(t_state *vars, t_circle circle)
 }
 
 void drawgraph(t_state *vars, int size, int chevronsize)
-{
+{        
+    float   mult = 1;
+    float   base = 0.01;
+    int     n = 0;
+    
     draw_line_with_width(vars, real_to_virtual(vars, 0, size * -1), real_to_virtual(vars, 0, size), 3);
 	draw_line_with_width(vars, real_to_virtual(vars, size * -1, 0), real_to_virtual(vars, size, 0), 3);
 	
     for (float i = 0.1; i <= size; i += 0.1)
     {
-        float mult = 1;
-        float base = 0.03;
-        
-        if (round(fmod(i, 1)) == 0)
-            mult = 10;
+        if (++n % 10 == 0)
+            mult = 5;
         else
             mult = 1;
         draw_line_with_width(vars, 

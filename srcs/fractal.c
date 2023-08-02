@@ -19,11 +19,12 @@ t_vec2d	mandelbrot_calc(t_fracts var, t_vec2d val, t_vec2d constant)
 	return (val);
 }
 
-float	mandelbrot_math(t_state *vars, int x, int y, int max_iterations)
+float	mandelbrot_math(t_state *vars, int x, int y, int max_iterations, int displaychain)
 {
 	int			i;
 	t_vec2d		val;
 	t_vec2d		constant;
+	t_vec2d		bkp;
 
 	i = 0;
 	val.x = 0.0;
@@ -31,7 +32,10 @@ float	mandelbrot_math(t_state *vars, int x, int y, int max_iterations)
 	constant = virtual_to_real(vars, x, y);
 	while (i < max_iterations)
 	{
+		bkp = val;
 		val = mandelbrot_calc(vars->fract, val, constant);
+		if(displaychain)
+			draw_line_with_width(vars, real_to_virtual(vars, val.x, val.y), real_to_virtual(vars, bkp.x, bkp.y), 1);
 		if (pow(val.x, 2) + pow(val.y, 2) > 2.0 * 2.0)
 			break ;
 		i++;
@@ -39,7 +43,7 @@ float	mandelbrot_math(t_state *vars, int x, int y, int max_iterations)
 	return (i);
 }
 
-float	julia_math(t_state *vars, int x, int y, int max_iterations)
+float	julia_math(t_state *vars, int x, int y, int max_iterations, int displaychain)
 {
 	int			i;
 	t_vec2d		val;
@@ -58,7 +62,7 @@ float	julia_math(t_state *vars, int x, int y, int max_iterations)
 	return (i);
 }
 
-float	burning_ship_math(t_state *vars, int x, int y, int max_iterations)
+float	burning_ship_math(t_state *vars, int x, int y, int max_iterations, int displaychain)
 {
 	int			i;
 	t_vec2d		val;

@@ -35,7 +35,7 @@ int	main(int argc, char **argv)
 
 	vars.screenblocks = dividescreen(WIDTH, HEIGHT, sqrt(NUM_THREADS), sqrt(NUM_THREADS));
 	vars.render_size = (t_ivec2d){.x = WIDTH, .y = HEIGHT};
-	vars.constant = (t_vec2d){.x = -0.75, .y = 0.05};
+	//vars.constant = (t_vec2d){.x = -0.75, .y = 0.05};
 	vars.max_iterations = ft_atoi(argv[1]);
 	vars.virt_min = (t_vec2d){.x = -2, .y = -2};
 	vars.virt_max = (t_vec2d){.x = 2, .y = 2};
@@ -44,7 +44,10 @@ int	main(int argc, char **argv)
 	vars.render_lock = 0;
 	switch_fract(&vars, mandelbrot);
 
-	vars.debug.drawdebug = 1;
+	vars.debug.drawdebug = 0;
+	vars.debug.drawgraph = 0;
+	vars.debug.drawtext = 0;
+	vars.debug.drawiter = 0;
 
 	vars.mlx = mlx_init();
 	vars.win = mlx_new_window(vars.mlx, vars.render_size.x, vars.render_size.y, "UwU");

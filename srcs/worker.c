@@ -6,7 +6,7 @@
 /*   By: insidebsi <insidebsi@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 16:42:56 by insidebsi         #+#    #+#             */
-/*   Updated: 2023/08/01 20:43:12 by insidebsi        ###   ########.fr       */
+/*   Updated: 2023/08/02 18:08:44 by insidebsi        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	*renderworker(void *workerdata)
 		for (int x = data->region.sx; x < data->region.ex; ++x)
 		{
 			iterations = data->vars->function(data->vars, x, y,
-					data->vars->max_iterations);
+					data->vars->max_iterations, 0);
 			color = which_colour(iterations, data->vars->palette);
 			mlx_put_pixel(data->vars, x, y, color);
 			//printf("rendered %i %i %i %i\n", data->region.sx, data->region.sy, data->region.ex, data->region.ey);

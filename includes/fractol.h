@@ -6,7 +6,7 @@
 /*   By: insidebsi <insidebsi@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 19:15:39 by insidebsi         #+#    #+#             */
-/*   Updated: 2023/08/01 21:41:27 by insidebsi        ###   ########.fr       */
+/*   Updated: 2023/08/02 18:54:21 by insidebsi        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ typedef struct s_state {
 	t_vec2d		constant;
 	t_region	*screenblocks;
 	t_debuginfo	debug;
-	float		(*function)(struct s_state *vars, int x, int y, int max_it);
+	float		(*function)(struct s_state *vars, int x, int y, int max_it, int dc);
 }				t_state;
 
 typedef struct s_workerData {
@@ -130,9 +130,9 @@ int			which_colour(int it, int palette);
 
 //fractal.c
 t_vec2d		mandelbrot_calc(t_fracts var, t_vec2d val, t_vec2d constant);
-float		mandelbrot_math(t_state *vars, int x, int y, int max_iterations);
-float		julia_math(t_state *vars, int x, int y, int max_iterations);
-float		burning_ship_math(t_state *vars, int x, int y, int max_iterations);
+float		mandelbrot_math(t_state *vars, int x, int y, int max_iterations, int displaychain);
+float		julia_math(t_state *vars, int x, int y, int max_iterations, int displaychain);
+float		burning_ship_math(t_state *vars, int x, int y, int max_iterations, int displaychain);
 
 //hooks.c
 int			key_hook(int keycode, t_state *vars);
@@ -140,7 +140,7 @@ int			mouse_hook(int code, int x, int y, t_state *vars);
 
 //math.c
 t_vec2d		virtual_to_real(t_state *vars, int x, int y);
-t_vec2d		real_to_virtual(t_state *vars, float x, float y);
+t_ivec2d		real_to_virtual(t_state *vars, float x, float y);
 t_vec2d		create_vec2d(double x, double y);
 t_vec2d		add_vec2d(t_vec2d a, t_vec2d b);
 t_vec2d		sub_vec2d(t_vec2d a, t_vec2d b);
@@ -163,7 +163,7 @@ void		*renderworker(void *workerData);
 void		init_fracts(t_state *vars);
 void	switch_fract(t_state *vars, t_fractals new);
 
-void draw_line_with_width(t_state *vars, t_vec2d start, t_vec2d end, int width);
+void draw_line_with_width(t_state *vars, t_ivec2d start, t_ivec2d end, int width);
 void drawsquare(t_state *vars, t_region region);
 void drawcircle(t_state *vars, t_circle circle);
 void drawgraph(t_state *vars, int size, int chevronsize);

@@ -22,7 +22,7 @@ void	switch_fract(t_state *vars, t_fractals new)
 	else if (new == julia)
 	{
 		vars->function = &julia_math;
-		vars->fract = (t_fracts){.mandelbrot = 0, .julia = (t_vec2d){.x = 0.285, .y = 0.01}, .burning = 0};
+		vars->fract = (t_fracts){.mandelbrot = 2, .julia = (t_vec2d){.x = 0.285, .y = 0.01}, .burning = 0};
 	}
 	else if (new == burning)
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fractol.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llegrand <llegrand@student.42.fr>          +#+  +:+       +#+        */
+/*   By: insidebsi <insidebsi@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 19:15:39 by insidebsi         #+#    #+#             */
-/*   Updated: 2023/07/31 17:51:06 by llegrand         ###   ########.fr       */
+/*   Updated: 2023/08/01 21:41:27 by insidebsi        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # include "../libft/includes/ft_printf.h"
 # include "../libft/includes/get_next_line.h"
 
-# define NUM_THREADS 1
+# define NUM_THREADS 16
 # define WIDTH 1600
 # define HEIGHT 800
 
@@ -86,9 +86,11 @@ typedef struct s_text {
 
 typedef struct s_debuginfo {
 	int			drawdebug;
-	t_region	*regions;
-	t_circle	*cicles;
-	t_text		*texts;
+	int			drawtext;
+	int			drawiter;
+	int			drawgraph;
+	t_vec2d		lasthit;
+	
 }				t_debuginfo;
 
 typedef struct s_state {
@@ -138,6 +140,7 @@ int			mouse_hook(int code, int x, int y, t_state *vars);
 
 //math.c
 t_vec2d		virtual_to_real(t_state *vars, int x, int y);
+t_vec2d		real_to_virtual(t_state *vars, float x, float y);
 t_vec2d		create_vec2d(double x, double y);
 t_vec2d		add_vec2d(t_vec2d a, t_vec2d b);
 t_vec2d		sub_vec2d(t_vec2d a, t_vec2d b);
@@ -149,7 +152,7 @@ t_vec2d		power_vec2d(t_vec2d a, int n);
 
 //render.c
 void		ft_zoom(int x, int y, t_state *vars, int isplus);
-void		my_mlx_pixel_put(t_state *vars, int x, int y, int color);
+void		mlx_put_pixel(t_state *vars, int x, int y, int color);
 t_region	*dividescreen(int screenWidth, int screenHeight, int nbx, int nby);
 int			render(t_state *vars);
 
@@ -159,5 +162,10 @@ void		*renderworker(void *workerData);
 //init.c
 void		init_fracts(t_state *vars);
 void	switch_fract(t_state *vars, t_fractals new);
+
+void draw_line_with_width(t_state *vars, t_vec2d start, t_vec2d end, int width);
+void drawsquare(t_state *vars, t_region region);
+void drawcircle(t_state *vars, t_circle circle);
+void drawgraph(t_state *vars, int size, int chevronsize);
 
 #endif

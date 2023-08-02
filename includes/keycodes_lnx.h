@@ -33,5 +33,11 @@
 
 # define KEY_ESC 65307
 # define KEY_X 120
+# define KEY_R 114
+# define KEY_P 112
+# define KEY_D 2
+# define KEY_1 38
+# define KEY_2 233
+# define KEY_3 34
 
 #endif

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: llegrand <llegrand@student.42.fr>          +#+  +:+       +#+         #
+#    By: insidebsi <insidebsi@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/20 14:22:16 by llegrand          #+#    #+#              #
-#    Updated: 2023/07/26 19:27:34 by llegrand         ###   ########.fr        #
+#    Updated: 2023/08/01 21:30:03 by insidebsi        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,7 @@ UNAME := $(shell uname)
 
 # compiler configs
 CC := gcc
-CCARGS := -Wall -Werror -Wextra
+CCARGS := #-Wall -Werror -Wextra
 
 # archive configs
 AR := ar
@@ -51,7 +51,7 @@ OSXARGS := -Iincludes -L. -lft -Lmlx_osx -lmlx_osx -L/usr/lib -Imlx_osx -framewo
 #OSXINCL := includes/keycodes_osx.h
 
 # source files
-SRCS := main.c srcs/color.c srcs/fractal.c srcs/hooks.c srcs/math.c srcs/render.c srcs/worker.c srcs/init.c
+SRCS := main.c srcs/color.c srcs/coordinates.c srcs/fractal.c srcs/hooks.c srcs/init.c srcs/iter_display.c srcs/render.c srcs/shapes.c srcs/vectors.c srcs/worker.c
 
 # include files
 INCLS := includes/colors.h includes/fractol.h

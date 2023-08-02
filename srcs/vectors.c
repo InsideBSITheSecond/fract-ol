@@ -1,25 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   math.c                                             :+:      :+:    :+:   */
+/*   vectors.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llegrand <llegrand@student.42.fr>          +#+  +:+       +#+        */
+/*   By: insidebsi <insidebsi@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 15:35:42 by insidebsi         #+#    #+#             */
-/*   Updated: 2023/07/24 18:55:07 by llegrand         ###   ########.fr       */
+/*   Updated: 2023/08/01 21:28:28 by insidebsi        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fractol.h"
-
-t_vec2d	virtual_to_real(t_state *vars, int x, int y)
-{
-	t_vec2d	res;
-
-	res.x = vars->virt_min.x + ((x * (vars->virt_max.x - vars->virt_min.x)) / WIDTH);
-	res.y = vars->virt_min.y + ((y * (vars->virt_max.y - vars->virt_min.y)) / WIDTH);
-	return (res);
-}
 
 t_vec2d	create_vec2d(double x, double y)
 {

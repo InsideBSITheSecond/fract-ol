@@ -3,41 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llegrand <llegrand@student.42.fr>          +#+  +:+       +#+        */
+/*   By: insidebsi <insidebsi@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 18:49:45 by insidebsi         #+#    #+#             */
-/*   Updated: 2023/07/31 17:54:33 by llegrand         ###   ########.fr       */
+/*   Updated: 2023/08/01 21:41:46 by insidebsi        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fractol.h"
-
-void squareZone(t_state *vars, t_region region)
-{
-	for (int y = region.sy; y < region.ey; y++)
-	{
-		for (int x = region.sx; x < region.ex; x++)
-		{
-			if (region.hollow && ((y == region.sy || y == region.ey - 1) || (x == region.sx || x == region.ex - 1)))
-					my_mlx_pixel_put(vars, x, y, create_argb(0, 127, 0, 127));
-			else if (region.hollow == 0)
-				my_mlx_pixel_put(vars, x, y, create_argb(0, 127, 0, 127));
-		}
-	}
-}
-
-void circleZone(t_state *vars, t_circle circle)
-{
-	const double pi = 3.1415926535;
-	
-	double x1, y1;
-	for (double i = 0; i < 360; i += 0.1)
-	{
-		x1 = circle.rad * cos(i * pi / 180);
-		y1 = circle.rad * sin(i * pi / 180);
-		my_mlx_pixel_put(vars, circle.x + x1, circle.y + y1, create_argb(0, 127, 0, 127));
-	}
-}
 
 void	ft_zoom(int x, int y, t_state *vars, int isplus)
 {
@@ -66,7 +39,7 @@ void	ft_zoom(int x, int y, t_state *vars, int isplus)
 	render(vars);
 }
 
-void	my_mlx_pixel_put(t_state *vars, int x, int y, int color)
+void	mlx_put_pixel(t_state *vars, int x, int y, int color)
 {
 	char	*dst;
 
@@ -101,8 +74,9 @@ t_region	*dividescreen(int screenwidth, int screenheight, int nbx, int nby)
 
 void	renderdebug(t_state *vars)
 {
-	squareZone(vars, (t_region){.sx = 15, .sy = 15, .ex = 50, .ey = 50, .hollow = 1});
-	circleZone(vars, (t_circle){.x = WIDTH / 2, .y = HEIGHT / 2, .rad = 125});
+	drawsquare(vars, (t_region){.sx = 15, .sy = 15, .ex = 50, .ey = 50, .hollow = 1});
+	drawcircle(vars, (t_circle){.x = WIDTH / 2, .y = HEIGHT / 2, .rad = 125});
+	drawgraph(vars, 2, 2);
 	
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->img, 0, 0);
 

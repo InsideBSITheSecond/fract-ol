@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llegrand <llegrand@student.42.fr>          +#+  +:+       +#+        */
+/*   By: insidebsi <insidebsi@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 18:50:03 by insidebsi         #+#    #+#             */
-/*   Updated: 2023/07/31 16:54:09 by llegrand         ###   ########.fr       */
+/*   Updated: 2023/08/01 21:38:39 by insidebsi        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fractol.h"
-#include "../includes/keycodes_osx.h"
+#include "../includes/keycodes_lnx.h"
 
 void consoleprint(t_state *vars)
 {
@@ -85,7 +85,11 @@ int	mouse_hook(int code, int x, int y, t_state *vars)
 {
 	vars->render_lock = 0;
 	if (code == 1)
-		printf("mouse left\n");
+	{
+		printf("mouse left x:%i y:%i\n", x, y);
+		vars->debug.drawiter = 1;
+		vars->debug.lasthit = (t_vec2d){.x = x, .y = y};
+	}
 	else if (code == 2)
 		printf("mouse right\n");
 	else if (code == 3)

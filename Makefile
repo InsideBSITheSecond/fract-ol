@@ -6,7 +6,7 @@
 #    By: insidebsi <insidebsi@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/20 14:22:16 by llegrand          #+#    #+#              #
-#    Updated: 2023/08/01 21:30:03 by insidebsi        ###   ########.fr        #
+#    Updated: 2023/08/03 22:28:28 by insidebsi        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,9 @@
 # KEY REPEAT
 
 # misc:
-# load julia depending on current mandel pos
+# improve debug menu
+# improve debug controls
+
 
 # **************************************************************************** #
 #                 _       _     _           

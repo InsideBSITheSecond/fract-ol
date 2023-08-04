@@ -6,7 +6,7 @@
 /*   By: insidebsi <insidebsi@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 19:15:39 by insidebsi         #+#    #+#             */
-/*   Updated: 2023/08/02 18:54:21 by insidebsi        ###   ########.fr       */
+/*   Updated: 2023/08/03 23:11:50 by insidebsi        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@
 # include "../libft/includes/ft_printf.h"
 # include "../libft/includes/get_next_line.h"
 
-# define NUM_THREADS 16
-# define WIDTH 1600
-# define HEIGHT 800
+# define NUM_THREADS 36
+# define WIDTH 1008
+# define HEIGHT 1008
 
 typedef enum e_fractals{
 	mandelbrot,
@@ -89,7 +89,9 @@ typedef struct s_debuginfo {
 	int			drawtext;
 	int			drawiter;
 	int			drawgraph;
-	t_vec2d		lasthit;
+	t_vec2d		lasthitreal;
+	t_vec2d		lhvmax;
+	t_vec2d		lhvmin;
 	
 }				t_debuginfo;
 
@@ -140,7 +142,9 @@ int			mouse_hook(int code, int x, int y, t_state *vars);
 
 //math.c
 t_vec2d		virtual_to_real(t_state *vars, int x, int y);
+t_vec2d virtual_to_real2(t_vec2d virt_min, t_vec2d virt_max, int x, int y);
 t_ivec2d		real_to_virtual(t_state *vars, float x, float y);
+t_ivec2d real_to_virtual2(t_vec2d virt_min, t_vec2d virt_max, float x, float y);
 t_vec2d		create_vec2d(double x, double y);
 t_vec2d		add_vec2d(t_vec2d a, t_vec2d b);
 t_vec2d		sub_vec2d(t_vec2d a, t_vec2d b);

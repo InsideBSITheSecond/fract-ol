@@ -6,7 +6,7 @@
 /*   By: insidebsi <insidebsi@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 18:58:33 by insidebsi         #+#    #+#             */
-/*   Updated: 2023/08/02 18:54:51 by insidebsi        ###   ########.fr       */
+/*   Updated: 2023/08/03 19:59:50 by insidebsi        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,9 @@ void drawcircle(t_state *vars, t_circle circle)
 	{
 		x1 = circle.rad * cos(i * pi / 180);
 		y1 = circle.rad * sin(i * pi / 180);
-		mlx_put_pixel(vars, circle.x + x1, circle.y + y1, create_argb(0, 127, 0, 127));
+        if ((circle.x + x1 >= 0 && circle.x + x1 <= WIDTH) && 
+            (circle.y + y1 >= 0 && circle.y + y1 <= HEIGHT))
+		        mlx_put_pixel(vars, circle.x + x1, circle.y + y1, create_argb(0, 127, 0, 127));
 	}
 }
 

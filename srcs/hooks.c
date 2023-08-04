@@ -6,7 +6,7 @@
 /*   By: insidebsi <insidebsi@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 18:50:03 by insidebsi         #+#    #+#             */
-/*   Updated: 2023/08/02 18:49:47 by insidebsi        ###   ########.fr       */
+/*   Updated: 2023/08/03 23:06:07 by insidebsi        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void suicide(t_state *vars)
 {
 	mlx_destroy_image(vars->mlx, vars->img);
 	mlx_destroy_window(vars->mlx, vars->win);
-	mlx_destroy_image(vars->mlx, vars->img);
+	mlx_destroy_display(vars->mlx);
 	free(vars->mlx);
 	exit(0);
 }
@@ -77,9 +77,9 @@ int	key_hook(int keycode, t_state *vars)
 	}
 	
 	else if (keycode == KEY_1)
-		switch_fract(vars, mandelbrot);
-	else if (keycode == KEY_2)
 		switch_fract(vars, julia);
+	else if (keycode == KEY_2)
+		switch_fract(vars, mandelbrot);
 	else if (keycode == KEY_3)
 		switch_fract(vars, burning);
 		
@@ -103,7 +103,11 @@ int	mouse_hook(int code, int x, int y, t_state *vars)
 	{
 		//printf("mouse event\nx:%i y:%i\nrx:%f ry:%f\n", x, y, virtual_to_real(vars, x, y).x, virtual_to_real(vars, x, y).y);
 		//vars->debug.drawiter = 1 - vars->debug.drawiter;
-		vars->debug.lasthit = virtual_to_real(vars, x, y);
+		vars->debug.lasthitreal = virtual_to_real(vars, x, y);
+		vars->debug.lhvmax = vars->virt_max;
+		vars->debug.lhvmin = vars->virt_min;
+
+		vars->fract.julia = vars->debug.lasthitreal;
 	}
 	if (code == 2)
 		printf("mouse right\n");

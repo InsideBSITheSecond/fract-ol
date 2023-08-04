@@ -41,8 +41,9 @@ int	main(int argc, char **argv)
 	vars.virt_max = (t_vec2d){.x = 2, .y = 2};
 	vars.zoom = 1.0f;
 	vars.palette = 2;
+	vars.fract = (t_fracts){.mandelbrot = 2, .julia = (t_vec2d){.x = 0, .y = 0}, .burning = 1};
 	vars.render_lock = 0;
-	switch_fract(&vars, mandelbrot);
+	switch_fract(&vars, julia);
 
 	vars.debug.drawdebug = 0;
 	vars.debug.drawgraph = 0;

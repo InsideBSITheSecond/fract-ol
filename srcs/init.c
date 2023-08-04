@@ -15,18 +15,9 @@
 void	switch_fract(t_state *vars, t_fractals new)
 {
 	if (new == mandelbrot)
-	{
 		vars->function = &mandelbrot_math;
-		vars->fract = (t_fracts){.mandelbrot = 2, .julia = (t_vec2d){.x = 0, .y = 0}, .burning = 0};
-	}
 	else if (new == julia)
-	{
 		vars->function = &julia_math;
-		vars->fract = (t_fracts){.mandelbrot = 2, .julia = virtual_to_real(vars, vars->debug.lasthit.x, vars->debug.lasthit.y), .burning = 0};
-	}
 	else if (new == burning)
-	{
 		vars->function = &burning_ship_math;
-		vars->fract = (t_fracts){.mandelbrot = 2, .julia = (t_vec2d){.x = 0, .y = 0}, .burning = 1};
-	}
 }

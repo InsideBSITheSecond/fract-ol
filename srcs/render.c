@@ -6,7 +6,7 @@
 /*   By: insidebsi <insidebsi@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 18:49:45 by insidebsi         #+#    #+#             */
-/*   Updated: 2023/08/02 18:55:47 by insidebsi        ###   ########.fr       */
+/*   Updated: 2023/08/03 23:02:49 by insidebsi        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,12 +76,16 @@ void	renderdebug(t_state *vars)
 {
 	//drawsquare(vars, (t_region){.sx = 15, .sy = 15, .ex = 50, .ey = 50, .hollow = 1});
 	//drawcircle(vars, (t_circle){.x = WIDTH / 2, .y = HEIGHT / 2, .rad = 125});
-	t_ivec2d crd = real_to_virtual(vars, vars->debug.lasthit.x, vars->debug.lasthit.y);
+	t_ivec2d crd = real_to_virtual(vars, vars->debug.lasthitreal.x, vars->debug.lasthitreal.y);
 	if (vars->debug.drawgraph)
-		drawgraph(vars, 2, 2);
+		drawgraph(vars, 5, 2);
 
 	if (vars->debug.drawiter)
-		mandelbrot_math(vars, crd.x, crd.y, vars->max_iterations, 1);
+		vars->function(vars, crd.x, crd.y, vars->max_iterations, 1);
+
+	drawcircle(vars, (t_circle){.x = crd.x, .y = crd.y, .rad = 15, .hollow = 0});
+	draw_line_with_width(vars, (t_ivec2d){.x = crd.x-15, .y = crd.y}, (t_ivec2d){.x = crd.x+15, .y = crd.y}, 3);
+	draw_line_with_width(vars, (t_ivec2d){.x = crd.x, .y = crd.y-15}, (t_ivec2d){.x = crd.x, .y = crd.y+15}, 3);
 	
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->img, 0, 0);
 

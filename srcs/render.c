@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: insidebsi <insidebsi@student.42.fr>        +#+  +:+       +#+        */
+/*   By: llegrand <llegrand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 18:49:45 by insidebsi         #+#    #+#             */
-/*   Updated: 2023/08/03 23:02:49 by insidebsi        ###   ########.fr       */
+/*   Updated: 2023/08/09 16:15:44 by llegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ void	ft_zoom(int x, int y, t_state *vars, int isplus)
 		vars->virt_min.y = vars->virt_min.y * zoom_fact
 			+ virt_pos.y * (1 - zoom_fact);
 	}
-	vars->debug.drawdebug = 1;
 	render(vars);
 }
 
@@ -82,17 +81,32 @@ void	renderdebug(t_state *vars)
 
 	if (vars->debug.drawiter)
 		vars->function(vars, crd.x, crd.y, vars->max_iterations, 1);
-
-	drawcircle(vars, (t_circle){.x = crd.x, .y = crd.y, .rad = 15, .hollow = 0});
-	draw_line_with_width(vars, (t_ivec2d){.x = crd.x-15, .y = crd.y}, (t_ivec2d){.x = crd.x+15, .y = crd.y}, 3);
-	draw_line_with_width(vars, (t_ivec2d){.x = crd.x, .y = crd.y-15}, (t_ivec2d){.x = crd.x, .y = crd.y+15}, 3);
+	
+	if (vars->debug.drawlasthit)
+	{	
+		drawcircle(vars, (t_circle){.x = crd.x, .y = crd.y, .rad = 15, .hollow = 0});
+		draw_line_with_width(vars, (t_ivec2d){.x = crd.x-15, .y = crd.y}, (t_ivec2d){.x = crd.x+15, .y = crd.y}, 3);
+		draw_line_with_width(vars, (t_ivec2d){.x = crd.x, .y = crd.y-15}, (t_ivec2d){.x = crd.x, .y = crd.y+15}, 3);
+	}
 	
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->img, 0, 0);
 
 	// text after img
 	if (vars->debug.drawtext)
+	{
 		mlx_string_put(vars->mlx, vars->win, 50, 50,
-			YELLOW, ft_strjoin("Iterations: ", (char *)ft_itoa(vars->max_iterations)));
+			YELLOW, ft_strformat("Iterations: %i", vars->max_iterations));
+		mlx_string_put(vars->mlx, vars->win, 50, 60,
+			YELLOW, ft_strformat("Last hit: %i - %i", vars->debug.lasthitreal.x, vars->debug.lasthitreal.y));
+		mlx_string_put(vars->mlx, vars->win, 50, 70,
+			YELLOW, ft_strformat("Virt min: %i - %i", vars->virt_min.x, vars->virt_min.y));
+		mlx_string_put(vars->mlx, vars->win, 50, 80,
+			YELLOW, ft_strformat("Virt max: %i - %i", vars->virt_max.x, vars->virt_max.y));
+	}
+
+
+	mlx_string_put(vars->mlx, vars->win, 35, 35,
+		RED, "DEBUG MODE");
 }
 
 int	render(t_state *vars)

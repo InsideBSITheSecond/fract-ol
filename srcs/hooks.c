@@ -3,21 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: insidebsi <insidebsi@student.42.fr>        +#+  +:+       +#+        */
+/*   By: llegrand <llegrand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 18:50:03 by insidebsi         #+#    #+#             */
-/*   Updated: 2023/08/03 23:06:07 by insidebsi        ###   ########.fr       */
+/*   Updated: 2023/08/08 11:55:40 by llegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fractol.h"
-#include "../includes/keycodes_lnx.h"
+#include "../includes/keycodes_osx.h"
 
 void suicide(t_state *vars)
 {
 	mlx_destroy_image(vars->mlx, vars->img);
 	mlx_destroy_window(vars->mlx, vars->win);
-	mlx_destroy_display(vars->mlx);
+	//mlx_destroy_display(vars->mlx);
 	free(vars->mlx);
 	exit(0);
 }
@@ -93,6 +93,8 @@ int	key_hook(int keycode, t_state *vars)
 		vars->debug.drawtext = 1 - vars->debug.drawtext;
 	else if (keycode == KEY_I)
 		vars->debug.drawiter = 1 - vars->debug.drawiter;
+	else if (keycode == KEY_H)
+		vars->debug.drawlasthit = 1 - vars->debug.drawlasthit;
 	return (0);
 }
 

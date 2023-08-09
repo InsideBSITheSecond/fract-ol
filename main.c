@@ -49,6 +49,7 @@ int	main(int argc, char **argv)
 	vars.debug.drawgraph = 0;
 	vars.debug.drawtext = 0;
 	vars.debug.drawiter = 0;
+	vars.debug.drawlasthit = 0;
 
 	vars.mlx = mlx_init();
 	vars.win = mlx_new_window(vars.mlx, vars.render_size.x, vars.render_size.y, "UwU");

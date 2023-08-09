@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fractol.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: insidebsi <insidebsi@student.42.fr>        +#+  +:+       +#+        */
+/*   By: llegrand <llegrand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 19:15:39 by insidebsi         #+#    #+#             */
-/*   Updated: 2023/08/03 23:11:50 by insidebsi        ###   ########.fr       */
+/*   Updated: 2023/08/09 16:21:09 by llegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # include "../libft/includes/ft_printf.h"
 # include "../libft/includes/get_next_line.h"
 
-# define NUM_THREADS 36
+# define NUM_THREADS 16
 # define WIDTH 1008
 # define HEIGHT 1008
 
@@ -89,6 +89,7 @@ typedef struct s_debuginfo {
 	int			drawtext;
 	int			drawiter;
 	int			drawgraph;
+	int			drawlasthit;
 	t_vec2d		lasthitreal;
 	t_vec2d		lhvmax;
 	t_vec2d		lhvmin;
@@ -131,7 +132,7 @@ int			get_b(int trgb);
 int			which_colour(int it, int palette);
 
 //fractal.c
-t_vec2d		mandelbrot_calc(t_fracts var, t_vec2d val, t_vec2d constant);
+t_vec2d		vec2d_pow_add(t_fracts var, t_vec2d val, t_vec2d constant);
 float		mandelbrot_math(t_state *vars, int x, int y, int max_iterations, int displaychain);
 float		julia_math(t_state *vars, int x, int y, int max_iterations, int displaychain);
 float		burning_ship_math(t_state *vars, int x, int y, int max_iterations, int displaychain);

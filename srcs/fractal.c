@@ -12,7 +12,7 @@
 
 #include "../includes/fractol.h"
 
-t_vec2d	mandelbrot_calc(t_fracts var, t_vec2d val, t_vec2d constant)
+t_vec2d	vec2d_pow_add(t_fracts var, t_vec2d val, t_vec2d constant)
 {
 	val = power_vec2d(val, var.mandelbrot);
 	val = add_vec2d(val, constant);
@@ -33,7 +33,7 @@ float	mandelbrot_math(t_state *vars, int x, int y, int max_iterations, int displ
 	while (i < max_iterations)
 	{
 		bkp = val;
-		val = mandelbrot_calc(vars->fract, val, constant);
+		val = vec2d_pow_add(vars->fract, val, constant);
 		if(displaychain)
 			draw_line_with_width(vars, real_to_virtual(vars, val.x, val.y), real_to_virtual(vars, bkp.x, bkp.y), 1);
 		if (pow(val.x, 2) + pow(val.y, 2) > 2.0 * 2.0)
@@ -56,7 +56,7 @@ float	julia_math(t_state *vars, int x, int y, int max_iterations, int displaycha
 	while (i < max_iterations)
 	{
 		bkp = val;
-		val = mandelbrot_calc(vars->fract, val, constant);
+		val = vec2d_pow_add(vars->fract, val, constant);
 		if(displaychain)
 			draw_line_with_width(vars, real_to_virtual(vars, val.x, val.y), real_to_virtual(vars, bkp.x, bkp.y), 1);
 		if (pow(val.x, 2) + pow(val.y, 2) > 2.0 * 2.0)
@@ -80,7 +80,7 @@ float	burning_ship_math(t_state *vars, int x, int y, int max_iterations, int dis
 	while (i < max_iterations && vars->fract.julia.x == 0.0)
 	{
 		bkp = val;
-		val = mandelbrot_calc(vars->fract, val, constant);
+		val = vec2d_pow_add(vars->fract, val, constant);
 		val.x = fabsl(val.x);
 		val.y = fabsl(val.y);
 		if(displaychain)

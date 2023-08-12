@@ -6,7 +6,7 @@
 /*   By: llegrand <llegrand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 19:15:39 by insidebsi         #+#    #+#             */
-/*   Updated: 2023/08/09 16:21:09 by llegrand         ###   ########.fr       */
+/*   Updated: 2023/08/10 16:11:45 by llegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,12 @@ typedef struct s_ivec2d {
 	int	x;
 	int	y;
 }				t_ivec2d;
+
+typedef struct s_vec3d {
+	double	x;
+	double	y;
+	double	z;
+}				t_vec3d;
 
 typedef struct s_ivec3d {
 	int	x;

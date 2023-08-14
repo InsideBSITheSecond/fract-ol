@@ -6,7 +6,7 @@
 /*   By: llegrand <llegrand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 18:58:33 by insidebsi         #+#    #+#             */
-/*   Updated: 2023/08/10 16:21:04 by llegrand         ###   ########.fr       */
+/*   Updated: 2023/08/14 18:12:34 by llegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,36 +65,45 @@ void	drawcircle(t_state *vars, t_circle circle)
 	}
 }
 
+void	drawgraph_segments(t_state *vars, float i, float base, int mult)
+{
+	draw_line_with_width(vars, real_to_virtual(vars, i * -1, base * mult),
+		real_to_virtual(vars, i * -1, base * -1 * mult), 3);
+	draw_line_with_width(vars, real_to_virtual(vars, i, base * mult),
+		real_to_virtual(vars, i, base * -1 * mult), 3);
+	draw_line_with_width(vars, real_to_virtual(vars, base * mult, i * -1),
+		real_to_virtual(vars, base * -1 * mult, i * -1), 3);
+	draw_line_with_width(vars, real_to_virtual(vars, base * mult, i),
+		real_to_virtual(vars, base * -1 * mult, i), 3);
+}
+
 void	drawgraph(t_state *vars, int size, int chevronsize)
 {
-	int	mult;
-	float	base = 0.01;
-	int		n = 0;
-	
-	draw_line_with_width(vars, real_to_virtual(vars, 0, size * -1), real_to_virtual(vars, 0, size), 3);
-	draw_line_with_width(vars, real_to_virtual(vars, size * -1, 0), real_to_virtual(vars, size, 0), 3);
-	for (float	i = 0.1; i <= size; i += 0.1)
+	int		mult;
+	float	base;
+	int		n;
+	float	i;
+
+	base = 0.01;
+	n = 0;
+	i = 0.1;
+	draw_line_with_width(vars, real_to_virtual(vars, 0, size * -1),
+		real_to_virtual(vars, 0, size), 3);
+	draw_line_with_width(vars, real_to_virtual(vars, size * -1, 0),
+		real_to_virtual(vars, size, 0), 3);
+	while (i <= size)
 	{
 		if (++n % 10 == 0)
 			mult = 5;
 		else
 			mult = 1;
-		draw_line_with_width(vars,
-			real_to_virtual(vars, i * -1, base * mult),
-			real_to_virtual(vars, i * -1, base * -1 * mult), 3);
-		draw_line_with_width(vars,
-			real_to_virtual(vars, i, base * mult),
-			real_to_virtual(vars, i, base * -1 * mult), 3);
-		draw_line_with_width(vars,
-			real_to_virtual(vars, base * mult, i * -1),
-			real_to_virtual(vars, base * -1 * mult, i * -1), 3);
-		draw_line_with_width(vars,
-			real_to_virtual(vars, base * mult, i),
-			real_to_virtual(vars, base * -1 * mult, i), 3);
+		drawgraph_segments(vars, i, base, mult);
+		i += 0.1;
 	}
 }
+
 void	draw_line_with_width(t_state *vars, t_ivec2d start,
-			t_ivec2d end, int width)
+		t_ivec2d end, int width)
 {
 	t_ivec2d	dxy;
 

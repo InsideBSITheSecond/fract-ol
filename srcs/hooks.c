@@ -6,23 +6,22 @@
 /*   By: llegrand <llegrand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 18:50:03 by insidebsi         #+#    #+#             */
-/*   Updated: 2023/08/08 11:55:40 by llegrand         ###   ########.fr       */
+/*   Updated: 2023/08/14 18:31:57 by llegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fractol.h"
 #include "../includes/keycodes_osx.h"
 
-void suicide(t_state *vars)
+void	suicide(t_state *vars)
 {
 	mlx_destroy_image(vars->mlx, vars->img);
 	mlx_destroy_window(vars->mlx, vars->win);
-	//mlx_destroy_display(vars->mlx);
 	free(vars->mlx);
 	exit(0);
 }
 
-void consoleprint(t_state *vars)
+void	consoleprint(t_state *vars)
 {
 	printf("virt_max (x/y): %f/%f\n", vars->virt_max.x, vars->virt_max.y);
 	printf("virt_min (x/y): %f/%f\n", vars->virt_min.x, vars->virt_min.y);
@@ -66,7 +65,6 @@ int	key_hook(int keycode, t_state *vars)
 		vars->fract.mandelbrot -= 1;
 	else if (keycode == NUMPAD_6)
 		vars->fract.mandelbrot += 1;
-		
 	else if (keycode == KEY_ESC || keycode == KEY_X)
 		suicide(vars);
 	else if (keycode == KEY_R)
@@ -75,14 +73,12 @@ int	key_hook(int keycode, t_state *vars)
 		vars->virt_max = (t_vec2d){.x = 2, .y = 2};
 		vars->zoom = 1.0f;
 	}
-	
 	else if (keycode == KEY_1)
 		switch_fract(vars, julia);
 	else if (keycode == KEY_2)
 		switch_fract(vars, mandelbrot);
 	else if (keycode == KEY_3)
 		switch_fract(vars, burning);
-		
 	else if (keycode == KEY_P)
 		consoleprint(vars);
 	else if (keycode == KEY_D)
@@ -103,12 +99,9 @@ int	mouse_hook(int code, int x, int y, t_state *vars)
 	vars->render_lock = 0;
 	if (code == 1)
 	{
-		//printf("mouse event\nx:%i y:%i\nrx:%f ry:%f\n", x, y, virtual_to_real(vars, x, y).x, virtual_to_real(vars, x, y).y);
-		//vars->debug.drawiter = 1 - vars->debug.drawiter;
 		vars->debug.lasthitreal = virtual_to_real(vars, x, y);
 		vars->debug.lhvmax = vars->virt_max;
 		vars->debug.lhvmin = vars->virt_min;
-
 		vars->fract.julia = vars->debug.lasthitreal;
 	}
 	if (code == 2)

@@ -6,7 +6,7 @@
 /*   By: llegrand <llegrand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 18:49:45 by insidebsi         #+#    #+#             */
-/*   Updated: 2023/08/09 16:15:44 by llegrand         ###   ########.fr       */
+/*   Updated: 2023/08/14 18:35:52 by llegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void	ft_zoom(int x, int y, t_state *vars, int isplus)
 	t_vec2d	virt_pos;
 	double	zoom_fact;
 
-	//ft_printf("%i - %i | %i\n", x, y, isplus);
 	if (isplus == 1)
 		zoom_fact = 0.9f;
 	else
@@ -49,49 +48,48 @@ void	mlx_put_pixel(t_state *vars, int x, int y, int color)
 t_region	*dividescreen(int screenwidth, int screenheight, int nbx, int nby)
 {
 	t_ivec2d	blocksize;
+	t_ivec2d	iter;
 	t_region	*blocks;
 	int			i;
 
+	iter = (t_ivec2d){.x = 0, .y = 0};
 	blocksize = (t_ivec2d){.x = screenwidth / nbx, .y = screenheight / nby};
 	blocks = (t_region *)malloc(nbx * nby * sizeof(t_region));
 	i = 0;
-	for (int y = 0; y < nby; y++)
+	while (iter.y < nby)
 	{
-		for (int x = 0; x < nbx; x++)
+		while (iter.x < nbx)
 		{
-			blocks[i].sx = x * blocksize.x;
-			blocks[i].sy = y * blocksize.y;
-			blocks[i].ex = (x + 1) * blocksize.x;
-			blocks[i].ey = (y + 1) * blocksize.y;
+			blocks[i].sx = iter.x * blocksize.x;
+			blocks[i].sy = iter.y * blocksize.y;
+			blocks[i].ex = (iter.x + 1) * blocksize.x;
+			blocks[i].ey = (iter.y + 1) * blocksize.y;
 			i++;
+			iter.x++;
 		}
+		iter.y++;
+		iter.x = 0;
 	}
-	printf("Made %i blocks of size %ix%i for %i workers\n", i, blocksize.x,
-		blocksize.y, nbx * nby);
+	printf("%iB(%ix%i) -> %iW\n", i, blocksize.x, blocksize.y, nbx * nby);
 	return (blocks);
 }
 
 void	renderdebug(t_state *vars)
 {
-	//drawsquare(vars, (t_region){.sx = 15, .sy = 15, .ex = 50, .ey = 50, .hollow = 1});
-	//drawcircle(vars, (t_circle){.x = WIDTH / 2, .y = HEIGHT / 2, .rad = 125});
-	t_ivec2d crd = real_to_virtual(vars, vars->debug.lasthitreal.x, vars->debug.lasthitreal.y);
+	t_ivec2d	crd;
+
 	if (vars->debug.drawgraph)
 		drawgraph(vars, 5, 2);
-
 	if (vars->debug.drawiter)
 		vars->function(vars, crd.x, crd.y, vars->max_iterations, 1);
-	
 	if (vars->debug.drawlasthit)
 	{	
+		crd = real_to_virtual(vars, vars->debug.lasthitreal.x, vars->debug.lasthitreal.y);
 		drawcircle(vars, (t_circle){.x = crd.x, .y = crd.y, .rad = 15, .hollow = 0});
-		draw_line_with_width(vars, (t_ivec2d){.x = crd.x-15, .y = crd.y}, (t_ivec2d){.x = crd.x+15, .y = crd.y}, 3);
-		draw_line_with_width(vars, (t_ivec2d){.x = crd.x, .y = crd.y-15}, (t_ivec2d){.x = crd.x, .y = crd.y+15}, 3);
+		draw_line_with_width(vars, (t_ivec2d){.x = crd.x - 15, .y = crd.y}, (t_ivec2d){.x = crd.x + 15, .y = crd.y}, 3);
+		draw_line_with_width(vars, (t_ivec2d){.x = crd.x, .y = crd.y - 15}, (t_ivec2d){.x = crd.x, .y = crd.y + 15}, 3);
 	}
-	
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->img, 0, 0);
-
-	// text after img
 	if (vars->debug.drawtext)
 	{
 		mlx_string_put(vars->mlx, vars->win, 50, 50,
@@ -103,8 +101,6 @@ void	renderdebug(t_state *vars)
 		mlx_string_put(vars->mlx, vars->win, 50, 80,
 			YELLOW, ft_strformat("Virt max: %i - %i", vars->virt_max.x, vars->virt_max.y));
 	}
-
-
 	mlx_string_put(vars->mlx, vars->win, 35, 35,
 		RED, "DEBUG MODE");
 }

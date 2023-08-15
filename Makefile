@@ -6,7 +6,7 @@
 #    By: llegrand <llegrand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/20 14:22:16 by llegrand          #+#    #+#              #
-#    Updated: 2023/08/09 16:35:44 by llegrand         ###   ########.fr        #
+#    Updated: 2023/08/15 17:37:21 by llegrand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,7 +53,7 @@ OSXARGS := -Iincludes -L. -lft -Lmlx_osx -lmlx_osx -L/usr/lib -Imlx_osx -framewo
 #OSXINCL := includes/keycodes_osx.h
 
 # source files
-SRCS := main.c srcs/color.c srcs/coordinates.c srcs/fractal.c srcs/hooks.c srcs/init.c srcs/render.c srcs/shapes.c srcs/vector_advanced.c srcs/vector_basics.c srcs/worker.c
+SRCS := main.c srcs/color.c srcs/controls.c srcs/coordinates.c srcs/fractal.c srcs/hooks.c srcs/init.c srcs/render.c srcs/shapes.c srcs/vector_advanced.c srcs/vector_basics.c srcs/worker.c
 
 # include files
 INCLS := includes/colors.h includes/fractol.h

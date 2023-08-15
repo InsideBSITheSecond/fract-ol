@@ -19,7 +19,7 @@ t_vec2d	vec2d_pow_add(t_fracts var, t_vec2d val, t_vec2d constant)
 	return (val);
 }
 
-float	mandelbrot_math(t_state *vars, int x, int y,
+float	mandelbrot_math(t_state *vars, t_ivec2d vector,
 		int max_iterations, int displaychain)
 {
 	int			i;
@@ -30,13 +30,14 @@ float	mandelbrot_math(t_state *vars, int x, int y,
 	i = 0;
 	val.x = 0.0;
 	val.y = 0.0;
-	constant = virtual_to_real(vars, x, y);
+	constant = virtual_to_real(vars, vector.x, vector.y);
 	while (i < max_iterations)
 	{
 		bkp = val;
 		val = vec2d_pow_add(vars->fract, val, constant);
 		if (displaychain)
-			draw_line_with_width(vars, real_to_virtual(vars, val.x, val.y), real_to_virtual(vars, bkp.x, bkp.y), 1);
+			drawline(vars, real_to_virtual(vars, val.x, val.y),
+				real_to_virtual(vars, bkp.x, bkp.y), which_colour(i, vars->palette));
 		if (pow(val.x, 2) + pow(val.y, 2) > 2.0 * 2.0)
 			break ;
 		i++;
@@ -44,7 +45,8 @@ float	mandelbrot_math(t_state *vars, int x, int y,
 	return (i);
 }
 
-float	julia_math(t_state *vars, int x, int y, int max_iterations, int displaychain)
+float	julia_math(t_state *vars, t_ivec2d vector,
+		int max_iterations, int displaychain)
 {
 	int			i;
 	t_vec2d		val;
@@ -52,14 +54,15 @@ float	julia_math(t_state *vars, int x, int y, int max_iterations, int displaycha
 	t_vec2d		bkp;
 
 	i = 0;
-	val = virtual_to_real(vars, x, y);
+	val = virtual_to_real(vars, vector.x, vector.y);
 	constant = vars->fract.julia;
 	while (i < max_iterations)
 	{
 		bkp = val;
 		val = vec2d_pow_add(vars->fract, val, constant);
 		if (displaychain)
-			draw_line_with_width(vars, real_to_virtual(vars, val.x, val.y), real_to_virtual(vars, bkp.x, bkp.y), 1);
+			draw_line_with_width(vars, real_to_virtual(vars, val.x, val.y),
+				real_to_virtual(vars, bkp.x, bkp.y), 1);
 		if (pow(val.x, 2) + pow(val.y, 2) > 2.0 * 2.0)
 			break ;
 		i++;
@@ -67,7 +70,8 @@ float	julia_math(t_state *vars, int x, int y, int max_iterations, int displaycha
 	return (i);
 }
 
-float	burning_ship_math(t_state *vars, int x, int y, int max_iterations, int displaychain)
+float	burning_ship_math(t_state *vars, t_ivec2d vector,
+		int max_iterations, int displaychain)
 {
 	int			i;
 	t_vec2d		val;
@@ -77,7 +81,7 @@ float	burning_ship_math(t_state *vars, int x, int y, int max_iterations, int dis
 	i = 0;
 	val.x = 0.0;
 	val.y = 0.0;
-	constant = virtual_to_real(vars, x, y);
+	constant = virtual_to_real(vars, vector.x, vector.y);
 	while (i < max_iterations && vars->fract.julia.x == 0.0)
 	{
 		bkp = val;
@@ -85,7 +89,8 @@ float	burning_ship_math(t_state *vars, int x, int y, int max_iterations, int dis
 		val.x = fabsl(val.x);
 		val.y = fabsl(val.y);
 		if (displaychain)
-			draw_line_with_width(vars, real_to_virtual(vars, val.x, val.y), real_to_virtual(vars, bkp.x, bkp.y), 1);
+			draw_line_with_width(vars, real_to_virtual(vars, val.x, val.y),
+				real_to_virtual(vars, bkp.x, bkp.y), 1);
 		if (pow(val.x, 2) + pow(val.y, 2) > 2.0 * 2.0)
 			break ;
 		i++;

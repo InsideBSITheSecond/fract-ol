@@ -6,7 +6,7 @@
 /*   By: llegrand <llegrand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 18:58:33 by insidebsi         #+#    #+#             */
-/*   Updated: 2023/08/14 18:12:34 by llegrand         ###   ########.fr       */
+/*   Updated: 2023/08/15 18:52:00 by llegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,26 @@ void	drawgraph_segments(t_state *vars, float i, float base, int mult)
 		real_to_virtual(vars, base * -1 * mult, i * -1), 3);
 	draw_line_with_width(vars, real_to_virtual(vars, base * mult, i),
 		real_to_virtual(vars, base * -1 * mult, i), 3);
+}
+
+void	drawline(t_state *vars, t_ivec2d start, t_ivec2d end, int color)
+{
+	int	pixels;
+	t_vec2d	delta;
+	t_vec2d	pixel;
+
+	delta = (t_vec2d){.x = end.x - start.x, .y = end.y - start.y};
+	pixels = sqrt((delta.x * delta.x) + (delta.y * delta.y));
+	delta.x /= pixels;
+	delta.y /= pixels;
+	pixel = (t_vec2d){.x = pixel.x = start.x, .y = pixel.y = start.y};
+	while (pixels)
+	{
+		mlx_put_pixel(vars, pixel.x, pixel.y, color);
+		pixel.x += delta.x;
+		pixel.y += delta.y;
+		--pixels;
+	}
 }
 
 void	drawgraph(t_state *vars, int size, int chevronsize)

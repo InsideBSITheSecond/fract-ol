@@ -6,7 +6,7 @@
 /*   By: llegrand <llegrand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 19:15:39 by insidebsi         #+#    #+#             */
-/*   Updated: 2023/08/10 16:11:45 by llegrand         ###   ########.fr       */
+/*   Updated: 2023/08/15 18:35:49 by llegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@
 # include "../libft/includes/ft_printf.h"
 # include "../libft/includes/get_next_line.h"
 
-# define NUM_THREADS 16
-# define WIDTH 1008
-# define HEIGHT 1008
+# define NUM_THREADS 36
+# define WIDTH 1200
+# define HEIGHT 1200
 
 typedef enum e_fractals{
 	mandelbrot,
@@ -121,7 +121,7 @@ typedef struct s_state {
 	t_vec2d		constant;
 	t_region	*screenblocks;
 	t_debuginfo	debug;
-	float		(*function)(struct s_state *vars, int x, int y, int max_it, int dc);
+	float		(*function)(struct s_state *vars, t_ivec2d vector, int max_it, int dc);
 }				t_state;
 
 typedef struct s_workerData {
@@ -139,13 +139,15 @@ int			which_colour(int it, int palette);
 
 //fractal.c
 t_vec2d		vec2d_pow_add(t_fracts var, t_vec2d val, t_vec2d constant);
-float		mandelbrot_math(t_state *vars, int x, int y, int max_iterations, int displaychain);
-float		julia_math(t_state *vars, int x, int y, int max_iterations, int displaychain);
-float		burning_ship_math(t_state *vars, int x, int y, int max_iterations, int displaychain);
+float		mandelbrot_math(t_state *vars, t_ivec2d vector, int max_iterations, int displaychain);
+float		julia_math(t_state *vars, t_ivec2d vector, int max_iterations, int displaychain);
+float		burning_ship_math(t_state *vars, t_ivec2d vector, int max_iterations, int displaychain);
 
 //hooks.c
 int			key_hook(int keycode, t_state *vars);
 int			mouse_hook(int code, int x, int y, t_state *vars);
+void	suicide(t_state *vars);
+void	consoleprint(t_state *vars);
 
 //math.c
 t_vec2d		virtual_to_real(t_state *vars, int x, int y);
@@ -171,12 +173,18 @@ int			render(t_state *vars);
 void		*renderworker(void *workerData);
 
 //init.c
-void		init_fracts(t_state *vars);
+void	init_system(t_state *vars, int max_iterations);
 void	switch_fract(t_state *vars, t_fractals new);
 
 void draw_line_with_width(t_state *vars, t_ivec2d start, t_ivec2d end, int width);
 void drawsquare(t_state *vars, t_region region);
 void drawcircle(t_state *vars, t_circle circle);
 void drawgraph(t_state *vars, int size, int chevronsize);
+void	drawline(t_state *vars, t_ivec2d start, t_ivec2d end, int color);
+
+void	kb_movement(int keycode, t_state *vars);
+void	kb_modifiers(int keycode, t_state *vars);
+void	kb_debugmode(int keycode, t_state *vars);
+void	kb_misc(int keycode, t_state *vars);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: llegrand <llegrand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 22:06:49 by insidebsi         #+#    #+#             */
-/*   Updated: 2023/07/24 17:46:32 by llegrand         ###   ########.fr       */
+/*   Updated: 2023/08/15 17:21:44 by llegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,13 @@ int	get_b(int trgb)
 int	which_colour(int it, int palette)
 {
 	if (palette == 0)
-		return (create_argb(0, 255 - (it % 255) * 10, 255 - (it % 255) * 10, 255 - (it % 255) * 10));
+		return (create_argb(0, 255 - (it % 255) * 10,
+				255 - (it % 255) * 10, 255 - (it % 255) * 10));
 	else if (palette == 1)
 		return (create_argb(0, (it * 7 % 255), (it % 255), (it % 255)));
 	else if (palette == 2)
-		return (create_argb(0, (it * 2 % 255), (it * 15 % 255), (it * 50 % 255)));
+		return (create_argb(0, (it * 2 % 255),
+				(it * 15 % 255), (it * 50 % 255)));
 	else
 		return (0);
 }

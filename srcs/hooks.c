@@ -6,7 +6,7 @@
 /*   By: llegrand <llegrand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 18:50:03 by insidebsi         #+#    #+#             */
-/*   Updated: 2023/08/14 18:31:57 by llegrand         ###   ########.fr       */
+/*   Updated: 2023/08/15 18:30:53 by llegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,77 +23,26 @@ void	suicide(t_state *vars)
 
 void	consoleprint(t_state *vars)
 {
-	printf("virt_max (x/y): %f/%f\n", vars->virt_max.x, vars->virt_max.y);
-	printf("virt_min (x/y): %f/%f\n", vars->virt_min.x, vars->virt_min.y);
-	printf("zoom: %f\n", vars->zoom);
-	printf("debug: %i\n", vars->debug.drawdebug);
+	ft_printf("virt_max (x/y): %f/%f\n", vars->virt_max.x, vars->virt_max.y);
+	ft_printf("virt_min (x/y): %f/%f\n", vars->virt_min.x, vars->virt_min.y);
+	ft_printf("zoom: %f\n", vars->zoom);
+	ft_printf("debug: %i\n", vars->debug.drawdebug);
 }
 
 int	key_hook(int keycode, t_state *vars)
 {
 	vars->render_lock = 0;
 	ft_printf("key: %i\n", keycode);
-	if (keycode == KEY_LEFT)
-	{
-		vars->virt_min.x -= 0.15 * vars->zoom;
-		vars->virt_max.x -= 0.15 * vars->zoom;
-	}
-	else if (keycode == KEY_RIGHT)
-	{
-		vars->virt_min.x += 0.15 * vars->zoom;
-		vars->virt_max.x += 0.15 * vars->zoom;
-	}
-	else if (keycode == KEY_UP)
-	{
-		vars->virt_min.y -= 0.15 * vars->zoom;
-		vars->virt_max.y -= 0.15 * vars->zoom;
-	}
-	else if (keycode == KEY_DOWN)
-	{
-		vars->virt_min.y += 0.15 * vars->zoom;
-		vars->virt_max.y += 0.15 * vars->zoom;
-	}
-	else if (keycode == NUMPAD_PLUS)
-		ft_zoom(WIDTH / 2, HEIGHT / 2, vars, 1);
-	else if (keycode == NUMPAD_MINUS)
-		ft_zoom(WIDTH / 2, HEIGHT / 2, vars, 0);
-	else if (keycode == NUMPAD_7)
-		vars->max_iterations -= 10;
-	else if (keycode == NUMPAD_9)
-		vars->max_iterations += 10;
-	else if (keycode == NUMPAD_4)
-		vars->fract.mandelbrot -= 1;
-	else if (keycode == NUMPAD_6)
-		vars->fract.mandelbrot += 1;
-	else if (keycode == KEY_ESC || keycode == KEY_X)
-		suicide(vars);
-	else if (keycode == KEY_R)
-	{
-		vars->virt_min = (t_vec2d){.x = -2, .y = -2};
-		vars->virt_max = (t_vec2d){.x = 2, .y = 2};
-		vars->zoom = 1.0f;
-	}
-	else if (keycode == KEY_1)
-		switch_fract(vars, julia);
-	else if (keycode == KEY_2)
-		switch_fract(vars, mandelbrot);
-	else if (keycode == KEY_3)
-		switch_fract(vars, burning);
-	else if (keycode == KEY_P)
-		consoleprint(vars);
-	else if (keycode == KEY_D)
-		vars->debug.drawdebug = 1 - vars->debug.drawdebug;
-	else if (keycode == KEY_G)
-		vars->debug.drawgraph = 1 - vars->debug.drawgraph;
-	else if (keycode == KEY_T)
-		vars->debug.drawtext = 1 - vars->debug.drawtext;
-	else if (keycode == KEY_I)
-		vars->debug.drawiter = 1 - vars->debug.drawiter;
-	else if (keycode == KEY_H)
-		vars->debug.drawlasthit = 1 - vars->debug.drawlasthit;
+	kb_movement(keycode, vars);
+	kb_modifiers(keycode, vars);
+	kb_debugmode(keycode, vars);
+	kb_misc(keycode, vars);
 	return (0);
 }
 
+/*
+* IMPLEMENT DRAG ON RIGHT MOUSE & CENTER ON MIDDLE
+* */
 int	mouse_hook(int code, int x, int y, t_state *vars)
 {
 	vars->render_lock = 0;
@@ -105,9 +54,9 @@ int	mouse_hook(int code, int x, int y, t_state *vars)
 		vars->fract.julia = vars->debug.lasthitreal;
 	}
 	if (code == 2)
-		printf("mouse right\n");
+		ft_printf("mouse right\n");
 	else if (code == 3)
-		printf("mouse middle\n");
+		ft_printf("mouse middle\n");
 	else if (code == 4)
 		ft_zoom(x, y, vars, 1);
 	else if (code == 5)

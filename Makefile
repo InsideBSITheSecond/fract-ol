@@ -6,7 +6,7 @@
 #    By: llegrand <llegrand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/20 14:22:16 by llegrand          #+#    #+#              #
-#    Updated: 2023/08/16 17:55:33 by llegrand         ###   ########.fr        #
+#    Updated: 2023/08/16 18:48:23 by llegrand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,8 +20,8 @@
 # KEY REPEAT
 
 # misc:
-# improve debug menu
-# improve debug controls
+# dtoa for debug mode
+# fix strformat from libft (leaking)
 # dynamic iterations
 
 

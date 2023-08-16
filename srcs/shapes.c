@@ -6,7 +6,7 @@
 /*   By: llegrand <llegrand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 18:58:33 by insidebsi         #+#    #+#             */
-/*   Updated: 2023/08/16 18:39:12 by llegrand         ###   ########.fr       */
+/*   Updated: 2023/08/16 18:43:30 by llegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 // For simplicity, you can draw a square or circle centered at (x, y)
 // with the given width.
 
-void	draw_line_point(t_state *vars, int x, int y, int width)
+/*void	draw_line_point(t_state *vars, int x, int y, int width)
 {
 	t_ivec2d	ij;
 
@@ -30,7 +30,7 @@ void	draw_line_point(t_state *vars, int x, int y, int width)
 				mlx_put_pixel(vars, x + ij.x, y + ij.y,
 					create_argb(0, 127, 0, 127));
 	}
-}
+}*/
 
 /*void	drawsquare(t_state *vars, t_region region)
 {

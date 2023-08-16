@@ -6,7 +6,7 @@
 /*   By: llegrand <llegrand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 18:49:45 by insidebsi         #+#    #+#             */
-/*   Updated: 2023/08/16 18:34:36 by llegrand         ###   ########.fr       */
+/*   Updated: 2023/08/16 18:42:57 by llegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,19 +134,11 @@ int	render(t_state *vars)
 			workerdata[i].vars = vars;
 			if (pthread_create(&thread[i], NULL,
 					&renderworker, (void *)&workerdata[i]) != 0)
-			{
-				printf("ERROR : pthread create failed.\n");
-				return (0);
-			}
+				return (printf("ERROR : pthread create failed.\n"));
 		}
 		for (int i = 0; i != NUM_THREADS; i++)
-		{
 			if (pthread_join(thread[i], NULL) != 0)
-			{
-				printf("ERROR : pthread join failed.\n");
-				return (0);
-			}
-		}
+				return (printf("ERROR : pthread join failed.\n"));
 		if (vars->debug.drawdebug == 1)
 			renderdebug(vars);
 		else

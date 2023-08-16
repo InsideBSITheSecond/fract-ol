@@ -6,7 +6,7 @@
 /*   By: llegrand <llegrand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 18:58:33 by insidebsi         #+#    #+#             */
-/*   Updated: 2023/08/15 18:52:00 by llegrand         ###   ########.fr       */
+/*   Updated: 2023/08/16 18:39:12 by llegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,19 +67,20 @@ void	drawcircle(t_state *vars, t_circle circle)
 
 void	drawgraph_segments(t_state *vars, float i, float base, int mult)
 {
-	draw_line_with_width(vars, real_to_virtual(vars, i * -1, base * mult),
-		real_to_virtual(vars, i * -1, base * -1 * mult), 3);
-	draw_line_with_width(vars, real_to_virtual(vars, i, base * mult),
-		real_to_virtual(vars, i, base * -1 * mult), 3);
-	draw_line_with_width(vars, real_to_virtual(vars, base * mult, i * -1),
-		real_to_virtual(vars, base * -1 * mult, i * -1), 3);
-	draw_line_with_width(vars, real_to_virtual(vars, base * mult, i),
-		real_to_virtual(vars, base * -1 * mult, i), 3);
+	drawline(vars, real_to_virtual(vars, i * -1, base * mult),
+		real_to_virtual(vars, i * -1, base * -1 * mult), RED, 3);
+	drawline(vars, real_to_virtual(vars, i, base * mult),
+		real_to_virtual(vars, i, base * -1 * mult), RED, 3);
+	drawline(vars, real_to_virtual(vars, base * mult, i * -1),
+		real_to_virtual(vars, base * -1 * mult, i * -1), RED, 3);
+	drawline(vars, real_to_virtual(vars, base * mult, i),
+		real_to_virtual(vars, base * -1 * mult, i), RED, 3);
 }
 
-void	drawline(t_state *vars, t_ivec2d start, t_ivec2d end, int color)
+void	drawline(t_state *vars, t_ivec2d start, t_ivec2d end,
+	int color, int width)
 {
-	int	pixels;
+	int		pixels;
 	t_vec2d	delta;
 	t_vec2d	pixel;
 
@@ -91,6 +92,7 @@ void	drawline(t_state *vars, t_ivec2d start, t_ivec2d end, int color)
 	while (pixels)
 	{
 		mlx_put_pixel(vars, pixel.x, pixel.y, color);
+		//drawcircle(vars, (t_circle){.x = pixel.x, .y = pixel.y, .rad = round(width / 2), .hollow = 0});
 		pixel.x += delta.x;
 		pixel.y += delta.y;
 		--pixels;
@@ -107,10 +109,10 @@ void	drawgraph(t_state *vars, int size, int chevronsize)
 	base = 0.01;
 	n = 0;
 	i = 0.1;
-	draw_line_with_width(vars, real_to_virtual(vars, 0, size * -1),
-		real_to_virtual(vars, 0, size), 3);
-	draw_line_with_width(vars, real_to_virtual(vars, size * -1, 0),
-		real_to_virtual(vars, size, 0), 3);
+	drawline(vars, real_to_virtual(vars, 0, size * -1),
+		real_to_virtual(vars, 0, size), RED, 3);
+	drawline(vars, real_to_virtual(vars, size * -1, 0),
+		real_to_virtual(vars, size, 0), RED, 3);
 	while (i <= size)
 	{
 		if (++n % 10 == 0)
@@ -122,7 +124,7 @@ void	drawgraph(t_state *vars, int size, int chevronsize)
 	}
 }
 
-void	draw_line_with_width(t_state *vars, t_ivec2d start,
+/*void	draw_line_with_width(t_state *vars, t_ivec2d start,
 		t_ivec2d end, int width)
 {
 	t_ivec2d	dxy;
@@ -175,4 +177,4 @@ void	draw_line_with_width(t_state *vars, t_ivec2d start,
 			error += dxy.x;
 		}
 	}
-}
+}*/

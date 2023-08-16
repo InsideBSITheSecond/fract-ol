@@ -6,7 +6,7 @@
 /*   By: llegrand <llegrand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 19:15:39 by insidebsi         #+#    #+#             */
-/*   Updated: 2023/08/15 18:35:49 by llegrand         ###   ########.fr       */
+/*   Updated: 2023/08/16 18:38:21 by llegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,7 +180,7 @@ void draw_line_with_width(t_state *vars, t_ivec2d start, t_ivec2d end, int width
 void drawsquare(t_state *vars, t_region region);
 void drawcircle(t_state *vars, t_circle circle);
 void drawgraph(t_state *vars, int size, int chevronsize);
-void	drawline(t_state *vars, t_ivec2d start, t_ivec2d end, int color);
+void	drawline(t_state *vars, t_ivec2d start, t_ivec2d end, int color, int width);
 
 void	kb_movement(int keycode, t_state *vars);
 void	kb_modifiers(int keycode, t_state *vars);

@@ -6,7 +6,7 @@
 /*   By: llegrand <llegrand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 18:49:45 by insidebsi         #+#    #+#             */
-/*   Updated: 2023/08/15 18:52:42 by llegrand         ###   ########.fr       */
+/*   Updated: 2023/08/16 18:34:36 by llegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,13 @@ void	ft_zoom(int x, int y, t_state *vars, int isplus)
 void	mlx_put_pixel(t_state *vars, int x, int y, int color)
 {
 	char	*dst;
+
 	if (x > 0 && x < WIDTH)
 	{
 		if (y > 0 && y < HEIGHT)
 		{
-			dst = vars->addr + (y * vars->line_length + x * (vars->bits_per_pixel / 8));
+			dst = vars->addr
+				+ (y * vars->line_length + x * (vars->bits_per_pixel / 8));
 			*(unsigned int *)dst = color;
 		}
 	}
@@ -90,13 +92,13 @@ void	renderdebug(t_state *vars)
 	if (vars->debug.drawiter)
 		vars->function(vars, crd, vars->max_iterations, 1);
 	if (vars->debug.drawlasthit)
-	{	
+	{
 		drawcircle(vars, (t_circle){.x = crd.x, .y = crd.y,
 			.rad = 15, .hollow = 0});
-		draw_line_with_width(vars, (t_ivec2d){.x = crd.x - 15, .y = crd.y},
-			(t_ivec2d){.x = crd.x + 15, .y = crd.y}, 3);
-		draw_line_with_width(vars, (t_ivec2d){.x = crd.x, .y = crd.y - 15},
-			(t_ivec2d){.x = crd.x, .y = crd.y + 15}, 3);
+		drawline(vars, (t_ivec2d){.x = crd.x - 15, .y = crd.y},
+			(t_ivec2d){.x = crd.x + 15, .y = crd.y}, PURPLE, 3);
+		drawline(vars, (t_ivec2d){.x = crd.x, .y = crd.y - 15},
+			(t_ivec2d){.x = crd.x, .y = crd.y + 15}, PURPLE, 3);
 	}
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->img, 0, 0);
 	if (vars->debug.drawtext)

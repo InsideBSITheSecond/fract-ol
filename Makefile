@@ -6,7 +6,7 @@
 #    By: llegrand <llegrand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/20 14:22:16 by llegrand          #+#    #+#              #
-#    Updated: 2023/08/15 17:37:21 by llegrand         ###   ########.fr        #
+#    Updated: 2023/08/16 17:55:33 by llegrand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@
 # misc:
 # improve debug menu
 # improve debug controls
+# dynamic iterations
 
 
 # **************************************************************************** #

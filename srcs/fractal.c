@@ -37,7 +37,8 @@ float	mandelbrot_math(t_state *vars, t_ivec2d vector,
 		val = vec2d_pow_add(vars->fract, val, constant);
 		if (displaychain)
 			drawline(vars, real_to_virtual(vars, val.x, val.y),
-				real_to_virtual(vars, bkp.x, bkp.y), which_colour(i, vars->palette));
+				real_to_virtual(vars, bkp.x, bkp.y),
+				which_colour(i, vars->palette), 1);
 		if (pow(val.x, 2) + pow(val.y, 2) > 2.0 * 2.0)
 			break ;
 		i++;
@@ -61,8 +62,9 @@ float	julia_math(t_state *vars, t_ivec2d vector,
 		bkp = val;
 		val = vec2d_pow_add(vars->fract, val, constant);
 		if (displaychain)
-			draw_line_with_width(vars, real_to_virtual(vars, val.x, val.y),
-				real_to_virtual(vars, bkp.x, bkp.y), 1);
+			drawline(vars, real_to_virtual(vars, val.x, val.y),
+				real_to_virtual(vars, bkp.x, bkp.y),
+				which_colour(i, vars->palette), 1);
 		if (pow(val.x, 2) + pow(val.y, 2) > 2.0 * 2.0)
 			break ;
 		i++;
@@ -89,8 +91,9 @@ float	burning_ship_math(t_state *vars, t_ivec2d vector,
 		val.x = fabsl(val.x);
 		val.y = fabsl(val.y);
 		if (displaychain)
-			draw_line_with_width(vars, real_to_virtual(vars, val.x, val.y),
-				real_to_virtual(vars, bkp.x, bkp.y), 1);
+			drawline(vars, real_to_virtual(vars, val.x, val.y),
+				real_to_virtual(vars, bkp.x, bkp.y),
+				which_colour(i, vars->palette), 1);
 		if (pow(val.x, 2) + pow(val.y, 2) > 2.0 * 2.0)
 			break ;
 		i++;

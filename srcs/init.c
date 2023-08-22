@@ -30,6 +30,7 @@ void	init_system(t_state *vars, int max_iterations)
 	vars->debug.drawtext = 0;
 	vars->debug.drawiter = 0;
 	vars->debug.drawlasthit = 0;
+	vars->debug.drawhelp = 0;
 	vars->mlx = mlx_init();
 	vars->win = mlx_new_window(vars->mlx,
 			vars->render_size.x, vars->render_size.y, "UwU");

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llegrand <llegrand@student.42.fr>          +#+  +:+       +#+        */
+/*   By: insidebsi <insidebsi@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 18:49:45 by insidebsi         #+#    #+#             */
-/*   Updated: 2023/08/16 18:42:57 by llegrand         ###   ########.fr       */
+/*   Updated: 2023/08/20 01:25:14 by insidebsi        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,10 @@ void	ft_zoom(int x, int y, t_state *vars, int isplus)
 		vars->virt_min.y = vars->virt_min.y * zoom_fact
 			+ virt_pos.y * (1 - zoom_fact);
 	}
+	printf("itf:%i\n", (int)linmap(vars->zoom, 0.0000001, 0.000000000000001, 10, 1000));
+	printf("zoom %.15f\n", vars->zoom);
+	//vars->max_iterations = (int)linmap(vars->zoom, 0.000000001f, 2, 250, 10);
+	//vars->max_iterations = floor()
 	render(vars);
 }
 
@@ -84,12 +88,15 @@ t_region	*dividescreen(int screenwidth, int screenheight, int nbx, int nby)
 void	renderdebug(t_state *vars)
 {
 	t_ivec2d	crd;
+	int ystart;
+	int padding = 15;
+	int offset = 250;
 
 	crd = real_to_virtual(vars,
 			vars->debug.lasthitreal.x, vars->debug.lasthitreal.y);
 	if (vars->debug.drawgraph)
 		drawgraph(vars, 5, 2);
-	if (vars->debug.drawiter)
+	if (vars->debug.drawiter != 0)
 		vars->function(vars, crd, vars->max_iterations, 1);
 	if (vars->debug.drawlasthit)
 	{
@@ -103,19 +110,50 @@ void	renderdebug(t_state *vars)
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->img, 0, 0);
 	if (vars->debug.drawtext)
 	{
-		mlx_string_put(vars->mlx, vars->win, 50, 50,
+		ystart = 25;
+		mlx_string_put(vars->mlx, vars->win, padding, ystart += padding,
 			YELLOW, ft_strformat("Iterations: %i", vars->max_iterations));
-		mlx_string_put(vars->mlx, vars->win, 50, 60,
-			YELLOW, ft_strformat("Last hit: %i - %i",
+		mlx_string_put(vars->mlx, vars->win, padding, ystart += padding,
+			YELLOW, ft_strformat("Last hit: %d - %d",
 				vars->debug.lasthitreal.x, vars->debug.lasthitreal.y));
-		mlx_string_put(vars->mlx, vars->win, 50, 70,
-			YELLOW, ft_strformat("Virt min: %i - %i",
+		mlx_string_put(vars->mlx, vars->win, padding, ystart += padding,
+			YELLOW, ft_strformat("Virt min: %d - %d",
 				vars->virt_min.x, vars->virt_min.y));
-		mlx_string_put(vars->mlx, vars->win, 50, 80,
-			YELLOW, ft_strformat("Virt max: %i - %i",
+		mlx_string_put(vars->mlx, vars->win, padding, ystart += padding,
+			YELLOW, ft_strformat("Virt max: %d - %d",
 				vars->virt_max.x, vars->virt_max.y));
+		mlx_string_put(vars->mlx, vars->win, padding, ystart += padding,
+			YELLOW, ft_strformat("Zoom:    %d",
+				vars->zoom));		
+		mlx_string_put(vars->mlx, vars->win, padding, ystart += padding,
+			YELLOW, ft_strformat("0sMeter: 0.123456789abcdef"));
+		mlx_string_put(vars->mlx, vars->win, padding, ystart += padding,
+			YELLOW, ft_strformat("Palette: %i",
+				vars->palette));
 	}
-	mlx_string_put(vars->mlx, vars->win, 35, 35,
+	if(vars->debug.drawhelp)
+	{
+		ystart = 25;
+		mlx_string_put(vars->mlx, vars->win, WIDTH - offset, ystart += padding,
+			YELLOW, ft_strformat("D : Toggle debug mode"));
+		mlx_string_put(vars->mlx, vars->win, WIDTH - offset, ystart += padding,
+			YELLOW, ft_strformat("? : Toggle commands display"));
+		mlx_string_put(vars->mlx, vars->win, WIDTH - offset, ystart += padding,
+			YELLOW, ft_strformat("G : Toggle graph display"));
+		mlx_string_put(vars->mlx, vars->win, WIDTH - offset, ystart += padding,
+			YELLOW, ft_strformat("H : Toggle lasthit display"));
+		mlx_string_put(vars->mlx, vars->win, WIDTH - offset, ystart += padding,
+			YELLOW, ft_strformat("I : Switch between iter display modes"));
+		mlx_string_put(vars->mlx, vars->win, WIDTH - offset, ystart += padding,
+			YELLOW, ft_strformat("T : Toggle text display"));
+		mlx_string_put(vars->mlx, vars->win, WIDTH - offset, ystart += padding,
+			YELLOW, ft_strformat("R : Reset view"));
+		mlx_string_put(vars->mlx, vars->win, WIDTH - offset, ystart += padding,
+			YELLOW, ft_strformat("1-2-3 : Switch fract mode"));
+		mlx_string_put(vars->mlx, vars->win, WIDTH - offset, ystart += padding,
+			YELLOW, ft_strformat("P : Switch palette"));
+	}
+	mlx_string_put(vars->mlx, vars->win, 10, 20,
 		RED, "DEBUG MODE");
 }
 

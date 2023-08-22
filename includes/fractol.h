@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fractol.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llegrand <llegrand@student.42.fr>          +#+  +:+       +#+        */
+/*   By: insidebsi <insidebsi@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 19:15:39 by insidebsi         #+#    #+#             */
-/*   Updated: 2023/08/16 18:38:21 by llegrand         ###   ########.fr       */
+/*   Updated: 2023/08/19 22:45:13 by insidebsi        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@
 # include "../libft/includes/get_next_line.h"
 
 # define NUM_THREADS 36
-# define WIDTH 1200
-# define HEIGHT 1200
+# define WIDTH 600
+# define HEIGHT 600
 
 typedef enum e_fractals{
 	mandelbrot,
@@ -76,6 +76,7 @@ typedef struct s_circle {
 	int y;
 	int rad;
 	int hollow;
+	int color;
 }				t_circle;
 
 typedef struct	s_cross {
@@ -96,6 +97,7 @@ typedef struct s_debuginfo {
 	int			drawiter;
 	int			drawgraph;
 	int			drawlasthit;
+	int			drawhelp;
 	t_vec2d		lasthitreal;
 	t_vec2d		lhvmax;
 	t_vec2d		lhvmin;
@@ -129,13 +131,23 @@ typedef struct s_workerData {
 	t_state		*vars;
 }				t_workerData;
 
+typedef struct s_mappingpoint{
+    double input;
+    int output;
+} t_mappingpoint;
+
+typedef struct s_mpmapping{
+    int numPoints;
+    t_mappingpoint *points;
+} t_mpmapping;
+
 //colors.c
 int			create_argb(int a, int r, int g, int b);
 //int			get_a(int trgb);
 int			get_r(int trgb);
 int			get_g(int trgb);
 int			get_b(int trgb);
-int			which_colour(int it, int palette);
+int			which_colour(int it, int palette, int max_it);
 
 //fractal.c
 t_vec2d		vec2d_pow_add(t_fracts var, t_vec2d val, t_vec2d constant);
@@ -186,5 +198,9 @@ void	kb_movement(int keycode, t_state *vars);
 void	kb_modifiers(int keycode, t_state *vars);
 void	kb_debugmode(int keycode, t_state *vars);
 void	kb_misc(int keycode, t_state *vars);
+
+
+double linmap(double value, double in_min, double in_max, double out_min, double out_max);
+int	colorlinmap(int a, int b, float ratio);
 
 #endif

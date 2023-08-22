@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shapes.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llegrand <llegrand@student.42.fr>          +#+  +:+       +#+        */
+/*   By: insidebsi <insidebsi@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 18:58:33 by insidebsi         #+#    #+#             */
-/*   Updated: 2023/08/16 18:43:30 by llegrand         ###   ########.fr       */
+/*   Updated: 2023/08/19 22:38:13 by insidebsi        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	drawcircle(t_state *vars, t_circle circle)
 		if ((circle.x + xyi.x >= 0 && circle.x + xyi.x <= WIDTH)
 			&& (circle.y + xyi.y >= 0 && circle.y + xyi.y <= HEIGHT))
 			mlx_put_pixel(vars, circle.x + xyi.x, circle.y + xyi.y,
-				create_argb(0, 127, 0, 127));
+				circle.color);
 		xyi.z += 0.1;
 	}
 }

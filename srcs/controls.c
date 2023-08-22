@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "../includes/fractol.h"
-#include "../includes/keycodes_osx.h"
+#include "../includes/keycodes_lnx.h"
 
 void	kb_movement(int keycode, t_state *vars)
 {
@@ -56,7 +56,7 @@ void	kb_modifiers(int keycode, t_state *vars)
 void	kb_debugmode(int keycode, t_state *vars)
 {
 	if (keycode == KEY_P)
-		consoleprint(vars);
+		vars->palette = (vars->palette + 1) % 3;
 	else if (keycode == KEY_D)
 		vars->debug.drawdebug = 1 - vars->debug.drawdebug;
 	else if (keycode == KEY_G)
@@ -64,9 +64,14 @@ void	kb_debugmode(int keycode, t_state *vars)
 	else if (keycode == KEY_T)
 		vars->debug.drawtext = 1 - vars->debug.drawtext;
 	else if (keycode == KEY_I)
-		vars->debug.drawiter = 1 - vars->debug.drawiter;
+	{
+		vars->debug.drawiter = (vars->debug.drawiter + 1) % 4;
+		printf("di: %i\n", vars->debug.drawiter);
+	}
 	else if (keycode == KEY_H)
 		vars->debug.drawlasthit = 1 - vars->debug.drawlasthit;
+	else if (keycode == KEY_QUESTIONMARK)
+		vars->debug.drawhelp = 1 - vars->debug.drawhelp;
 }
 
 void	kb_misc(int keycode, t_state *vars)

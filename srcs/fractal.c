@@ -19,6 +19,21 @@ t_vec2d	vec2d_pow_add(t_fracts var, t_vec2d val, t_vec2d constant)
 	return (val);
 }
 
+void drawiter(t_state *vars, t_vec2d val, t_vec2d bkp, int i)
+{
+	if (vars->debug.drawiter == 1 || vars->debug.drawiter == 3)
+		drawline(vars, 
+			real_to_virtual(vars, val.x, val.y),
+			real_to_virtual(vars, bkp.x, bkp.y),
+			which_colour(i, vars->palette, vars->max_iterations), 1);
+	
+	if (vars->debug.drawiter == 2 || vars->debug.drawiter == 3)
+		drawcircle(vars, (t_circle){
+			.x = real_to_virtual(vars, val.x, val.y).x, 
+			.y = real_to_virtual(vars, val.x, val.y).y, 
+			.color = which_colour(i, vars->palette, vars->max_iterations), .rad = 2});
+}
+
 float	mandelbrot_math(t_state *vars, t_ivec2d vector,
 		int max_iterations, int displaychain)
 {
@@ -36,9 +51,7 @@ float	mandelbrot_math(t_state *vars, t_ivec2d vector,
 		bkp = val;
 		val = vec2d_pow_add(vars->fract, val, constant);
 		if (displaychain)
-			drawline(vars, real_to_virtual(vars, val.x, val.y),
-				real_to_virtual(vars, bkp.x, bkp.y),
-				which_colour(i, vars->palette), 1);
+			drawiter(vars, val, bkp, i);
 		if (pow(val.x, 2) + pow(val.y, 2) > 2.0 * 2.0)
 			break ;
 		i++;
@@ -62,9 +75,7 @@ float	julia_math(t_state *vars, t_ivec2d vector,
 		bkp = val;
 		val = vec2d_pow_add(vars->fract, val, constant);
 		if (displaychain)
-			drawline(vars, real_to_virtual(vars, val.x, val.y),
-				real_to_virtual(vars, bkp.x, bkp.y),
-				which_colour(i, vars->palette), 1);
+			drawiter(vars, val, bkp, i);
 		if (pow(val.x, 2) + pow(val.y, 2) > 2.0 * 2.0)
 			break ;
 		i++;
@@ -91,9 +102,7 @@ float	burning_ship_math(t_state *vars, t_ivec2d vector,
 		val.x = fabsl(val.x);
 		val.y = fabsl(val.y);
 		if (displaychain)
-			drawline(vars, real_to_virtual(vars, val.x, val.y),
-				real_to_virtual(vars, bkp.x, bkp.y),
-				which_colour(i, vars->palette), 1);
+			drawiter(vars, val, bkp, i);
 		if (pow(val.x, 2) + pow(val.y, 2) > 2.0 * 2.0)
 			break ;
 		i++;

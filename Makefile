@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: llegrand <llegrand@student.42.fr>          +#+  +:+       +#+         #
+#    By: insidebsi <insidebsi@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/20 14:22:16 by llegrand          #+#    #+#              #
-#    Updated: 2023/08/16 18:48:23 by llegrand         ###   ########.fr        #
+#    Updated: 2023/08/20 01:21:53 by insidebsi        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,10 +20,21 @@
 # KEY REPEAT
 
 # misc:
+# understand why closer to 90->100 inter values makes more sharp details
+# smooth iter delimitations
+# graph only iter display mode with imaginary locking
 # dtoa for debug mode
 # fix strformat from libft (leaking)
-# dynamic iterations
+# auto zoom
+# cool mandelbrot POI using cursor shape
+# iter display switch between full/circle/none mode
+# rework colors (gradient provider https://cssgradient.io/)
+# BUDDAH MODE
+# ^ https://www.youtube.com/watch?v=wUlVFYJIUNA&list=PLPn28kZnbmugSaqAS_-pnLxjYte957r27&index=5 v
+# NEWTON FRACT
 
+# refused
+# dynamic iterations (not precise enough)
 
 # **************************************************************************** #
 #                 _       _     _           
@@ -54,7 +65,7 @@ OSXARGS := -Iincludes -L. -lft -Lmlx_osx -lmlx_osx -L/usr/lib -Imlx_osx -framewo
 #OSXINCL := includes/keycodes_osx.h
 
 # source files
-SRCS := main.c srcs/color.c srcs/controls.c srcs/coordinates.c srcs/fractal.c srcs/hooks.c srcs/init.c srcs/render.c srcs/shapes.c srcs/vector_advanced.c srcs/vector_basics.c srcs/worker.c
+SRCS := main.c srcs/utils.c srcs/color.c srcs/controls.c srcs/coordinates.c srcs/fractal.c srcs/hooks.c srcs/init.c srcs/render.c srcs/shapes.c srcs/vector_advanced.c srcs/vector_basics.c srcs/worker.c
 
 # include files
 INCLS := includes/colors.h includes/fractol.h

@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llegrand <llegrand@student.42.fr>          +#+  +:+       +#+        */
+/*   By: insidebsi <insidebsi@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 18:50:03 by insidebsi         #+#    #+#             */
-/*   Updated: 2023/08/15 18:30:53 by llegrand         ###   ########.fr       */
+/*   Updated: 2023/08/16 22:56:54 by insidebsi        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fractol.h"
-#include "../includes/keycodes_osx.h"
+#include "../includes/keycodes_lnx.h"
 
 void	suicide(t_state *vars)
 {

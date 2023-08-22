@@ -40,6 +40,7 @@
 # define KEY_T 17
 # define KEY_I 34
 # define KEY_H 4
+# define KEY_QUESTIONMARK 44
 # define KEY_1 18
 # define KEY_2 19
 # define KEY_3 20

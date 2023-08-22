@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "../includes/fractol.h"
-#include "../includes/keycodes_lnx.h"
+#include "../includes/keycodes_osx.h"
 
 void	kb_movement(int keycode, t_state *vars)
 {

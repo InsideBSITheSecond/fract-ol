@@ -49,3 +49,24 @@ void	switch_fract(t_state *vars, t_fractals new)
 	else if (new == burning)
 		vars->function = &burning_ship_math;
 }
+
+void	init_palettes(t_mpmapping *palettes)
+{
+	points = (t_mappingpoint *)ft_calloc(sizeof(t_mappingpoint), 7);
+	points[0] = (t_mappingpoint){0.0, create_argb(0, 12, 5, 130)};
+	points[1] = (t_mappingpoint){15, create_argb(0, 143, 106, 29)};
+	points[2] = (t_mappingpoint){30, create_argb(0, 41, 247, 1)};
+	points[3] = (t_mappingpoint){65, create_argb(0, 129, 0, 245)};
+	points[4] = (t_mappingpoint){90, create_argb(0, 255, 254, 0)};
+	points[5] = (t_mappingpoint){95, create_argb(0, 255, 0, 0)};
+	points[6] = (t_mappingpoint){100, create_argb(0, 5, 5, 5)};
+
+	points2 = (t_mappingpoint *)ft_calloc(sizeof(t_mappingpoint), 7);
+	points2[0] = (t_mappingpoint){0.0, create_argb(0, 255, 184, 0)};
+	points2[1] = (t_mappingpoint){10, create_argb(0, 250, 103, 229)};
+	points2[2] = (t_mappingpoint){25, create_argb(0, 188, 83, 249)};
+	points2[3] = (t_mappingpoint){50, create_argb(0, 88, 129, 251)};
+	points2[4] = (t_mappingpoint){90, create_argb(0, 32, 182, 254)};
+	points2[5] = (t_mappingpoint){95, create_argb(0, 12, 229, 236)};
+	points2[6] = (t_mappingpoint){100, create_argb(0, 8, 237, 122)};
+}

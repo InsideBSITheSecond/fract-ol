@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: insidebsi <insidebsi@student.42.fr>        +#+  +:+       +#+         #
+#    By: llegrand <llegrand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/20 14:22:16 by llegrand          #+#    #+#              #
-#    Updated: 2023/08/20 01:21:53 by insidebsi        ###   ########.fr        #
+#    Updated: 2023/08/22 23:00:40 by llegrand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,11 +50,12 @@ UNAME := $(shell uname)
 
 # compiler configs
 CC := gcc
-CCARGS := #-Wall -Werror -Wextra
+CCARGS := -g #-Wall -Werror -Wextra
 
 # archive configs
 AR := ar
 ARARGS := -crs		
+
 
 # linux-specific compiler args
 LNXARGS := -Iincludes -L. -lft -Lmlx_lnx -lmlx_lnx -L/usr/lib -Imlx_lnx -lXext -lX11 -lm -lz -lpthread -O3

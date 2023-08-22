@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shapes.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: insidebsi <insidebsi@student.42.fr>        +#+  +:+       +#+        */
+/*   By: llegrand <llegrand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 18:58:33 by insidebsi         #+#    #+#             */
-/*   Updated: 2023/08/19 22:38:13 by insidebsi        ###   ########.fr       */
+/*   Updated: 2023/08/22 15:07:56 by llegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,6 @@ void	drawline(t_state *vars, t_ivec2d start, t_ivec2d end,
 	while (pixels)
 	{
 		mlx_put_pixel(vars, pixel.x, pixel.y, color);
-		//drawcircle(vars, (t_circle){.x = pixel.x, .y = pixel.y, .rad = round(width / 2), .hollow = 0});
 		pixel.x += delta.x;
 		pixel.y += delta.y;
 		--pixels;

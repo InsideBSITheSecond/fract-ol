@@ -19,19 +19,19 @@ t_vec2d	vec2d_pow_add(t_fracts var, t_vec2d val, t_vec2d constant)
 	return (val);
 }
 
-void drawiter(t_state *vars, t_vec2d val, t_vec2d bkp, int i)
+void	drawiter(t_state *vars, t_vec2d val, t_vec2d bkp, int i)
 {
 	if (vars->debug.drawiter == 1 || vars->debug.drawiter == 3)
 		drawline(vars, 
 			real_to_virtual(vars, val.x, val.y),
 			real_to_virtual(vars, bkp.x, bkp.y),
 			which_colour(i, vars->palette, vars->max_iterations), 1);
-	
 	if (vars->debug.drawiter == 2 || vars->debug.drawiter == 3)
 		drawcircle(vars, (t_circle){
 			.x = real_to_virtual(vars, val.x, val.y).x, 
 			.y = real_to_virtual(vars, val.x, val.y).y, 
-			.color = which_colour(i, vars->palette, vars->max_iterations), .rad = 2});
+			.color = which_colour(i,
+				vars->palette, vars->max_iterations), .rad = 2});
 }
 
 float	mandelbrot_math(t_state *vars, t_ivec2d vector,

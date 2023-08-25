@@ -25,7 +25,7 @@ void	drawiter(t_state *vars, t_vec2d val, t_vec2d bkp, int i)
 		drawline(vars, 
 			real_to_virtual(vars, val.x, val.y),
 			real_to_virtual(vars, bkp.x, bkp.y),
-			which_colour(i, vars->palette, vars->max_iterations), 1);
+			which_colour(i, vars->palette, vars->max_iterations));
 	if (vars->debug.drawiter == 2 || vars->debug.drawiter == 3)
 		drawcircle(vars, (t_circle){
 			.x = real_to_virtual(vars, val.x, val.y).x, 

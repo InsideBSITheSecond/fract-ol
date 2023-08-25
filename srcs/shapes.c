@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shapes.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llegrand <llegrand@student.42.fr>          +#+  +:+       +#+        */
+/*   By: insidebsi <insidebsi@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 18:58:33 by insidebsi         #+#    #+#             */
-/*   Updated: 2023/08/22 15:07:56 by llegrand         ###   ########.fr       */
+/*   Updated: 2023/08/23 21:50:02 by insidebsi        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,17 +68,17 @@ void	drawcircle(t_state *vars, t_circle circle)
 void	drawgraph_segments(t_state *vars, float i, float base, int mult)
 {
 	drawline(vars, real_to_virtual(vars, i * -1, base * mult),
-		real_to_virtual(vars, i * -1, base * -1 * mult), RED, 3);
+		real_to_virtual(vars, i * -1, base * -1 * mult), RED);
 	drawline(vars, real_to_virtual(vars, i, base * mult),
-		real_to_virtual(vars, i, base * -1 * mult), RED, 3);
+		real_to_virtual(vars, i, base * -1 * mult), RED);
 	drawline(vars, real_to_virtual(vars, base * mult, i * -1),
-		real_to_virtual(vars, base * -1 * mult, i * -1), RED, 3);
+		real_to_virtual(vars, base * -1 * mult, i * -1), RED);
 	drawline(vars, real_to_virtual(vars, base * mult, i),
-		real_to_virtual(vars, base * -1 * mult, i), RED, 3);
+		real_to_virtual(vars, base * -1 * mult, i), RED);
 }
 
 void	drawline(t_state *vars, t_ivec2d start, t_ivec2d end,
-	int color, int width)
+	int color)
 {
 	int		pixels;
 	t_vec2d	delta;
@@ -109,9 +109,9 @@ void	drawgraph(t_state *vars, int size, int chevronsize)
 	n = 0;
 	i = 0.1;
 	drawline(vars, real_to_virtual(vars, 0, size * -1),
-		real_to_virtual(vars, 0, size), RED, 3);
+		real_to_virtual(vars, 0, size), RED);
 	drawline(vars, real_to_virtual(vars, size * -1, 0),
-		real_to_virtual(vars, size, 0), RED, 3);
+		real_to_virtual(vars, size, 0), RED);
 	while (i <= size)
 	{
 		if (++n % 10 == 0)

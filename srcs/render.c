@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llegrand <llegrand@student.42.fr>          +#+  +:+       +#+        */
+/*   By: insidebsi <insidebsi@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 18:49:45 by insidebsi         #+#    #+#             */
-/*   Updated: 2023/08/22 15:50:13 by llegrand         ###   ########.fr       */
+/*   Updated: 2023/08/23 21:50:18 by insidebsi        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,9 +148,9 @@ void	renderdebug(t_state *vars)
 		drawcircle(vars, (t_circle){.x = crd.x, .y = crd.y,
 			.rad = 15, .hollow = 0});
 		drawline(vars, (t_ivec2d){.x = crd.x - 15, .y = crd.y},
-			(t_ivec2d){.x = crd.x + 15, .y = crd.y}, PURPLE, 3);
+			(t_ivec2d){.x = crd.x + 15, .y = crd.y}, PURPLE);
 		drawline(vars, (t_ivec2d){.x = crd.x, .y = crd.y - 15},
-			(t_ivec2d){.x = crd.x, .y = crd.y + 15}, PURPLE, 3);
+			(t_ivec2d){.x = crd.x, .y = crd.y + 15}, PURPLE);
 	}
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->img, 0, 0);
 	if (vars->debug.drawtext)

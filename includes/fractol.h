@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fractol.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llegrand <llegrand@student.42.fr>          +#+  +:+       +#+        */
+/*   By: insidebsi <insidebsi@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 19:15:39 by insidebsi         #+#    #+#             */
-/*   Updated: 2023/08/22 23:34:34 by llegrand         ###   ########.fr       */
+/*   Updated: 2023/08/23 21:49:15 by insidebsi        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,11 @@ typedef struct s_debuginfo {
 	t_vec2d		lhvmin;
 }				t_debuginfo;
 
+typedef struct s_mappingpoint{
+	double	input;
+	int		output;
+}				t_mappingpoint;
+
 typedef struct s_mpmapping{
 	int				numpoints;
 	t_mappingpoint	*points;
@@ -139,10 +144,7 @@ typedef struct s_workerData {
 	t_state		*vars;
 }				t_workerData;
 
-typedef struct s_mappingpoint{
-	double	input;
-	int		output;
-}				t_mappingpoint;
+
 
 
 
@@ -203,7 +205,7 @@ void		drawsquare(t_state *vars, t_region region);
 void		drawcircle(t_state *vars, t_circle circle);
 void		drawgraph(t_state *vars, int size, int chevronsize);
 void		drawline(t_state *vars, t_ivec2d start, t_ivec2d end,
-				int color, int width);
+				int color);
 
 void		kb_movement(int keycode, t_state *vars);
 void		kb_modifiers(int keycode, t_state *vars);

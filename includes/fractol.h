@@ -6,7 +6,7 @@
 /*   By: insidebsi <insidebsi@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 19:15:39 by insidebsi         #+#    #+#             */
-/*   Updated: 2023/08/23 21:49:15 by insidebsi        ###   ########.fr       */
+/*   Updated: 2023/08/27 17:05:32 by insidebsi        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,7 +146,8 @@ typedef struct s_workerData {
 
 
 
-
+t_mappingpoint	*getpalette1(void);
+t_mappingpoint	*getpalette2(void);
 
 //colors.c
 int			create_argb(int a, int r, int g, int b);
@@ -212,8 +213,9 @@ void		kb_modifiers(int keycode, t_state *vars);
 void		kb_debugmode(int keycode, t_state *vars);
 void		kb_misc(int keycode, t_state *vars);
 
-double		linmap(double value, double in_min, double in_max,
-				double out_min, double out_max);
+void		renderdebug(t_state *vars);
+
+double		linmap(double val, t_vec2d range1, t_vec2d range2);
 int			colorlinmap(int a, int b, float ratio);
 double		mappedlmap(const t_mpmapping *mapping, double input);
 

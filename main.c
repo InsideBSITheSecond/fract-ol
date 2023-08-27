@@ -14,15 +14,15 @@
 
 int	main(int argc, char **argv)
 {
-	(void)argc;
 	t_state	vars;
 
+	(void)argc;
 	if (round(sqrt(NUM_THREADS)) != sqrt(NUM_THREADS))
-		return(printf("sqrt(NUM_THREADS) must be an integer"));
-	if(round(WIDTH / sqrt(NUM_THREADS)) != WIDTH / sqrt(NUM_THREADS))
-		return(printf("WIDTH must be dividable by round(sqrt(NUM_THREADS))"));
-	if(round(HEIGHT / sqrt(NUM_THREADS)) != HEIGHT / sqrt(NUM_THREADS))
-		return(printf("HEIGHT must be dividable by round(sqrt(NUM_THREADS))"));
+		return (printf("f"));
+	if (round(WIDTH / sqrt(NUM_THREADS)) != WIDTH / sqrt(NUM_THREADS))
+		return (printf("WIDTH must be dividable by round(sqrt(NUM_THREADS))"));
+	if (round(HEIGHT / sqrt(NUM_THREADS)) != HEIGHT / sqrt(NUM_THREADS))
+		return (printf("HEIGHT must be dividable by round(sqrt(NUM_THREADS))"));
 	init_system(&vars, atoi(argv[1]));
 	switch_fract(&vars, julia);
 	mlx_key_hook(vars.win, key_hook, &vars);

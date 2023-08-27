@@ -6,7 +6,7 @@
 /*   By: insidebsi <insidebsi@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 19:15:39 by insidebsi         #+#    #+#             */
-/*   Updated: 2023/08/27 17:05:32 by insidebsi        ###   ########.fr       */
+/*   Updated: 2023/08/27 18:50:10 by insidebsi        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,8 +143,6 @@ typedef struct s_workerData {
 	t_region	region;
 	t_state		*vars;
 }				t_workerData;
-
-
 
 t_mappingpoint	*getpalette1(void);
 t_mappingpoint	*getpalette2(void);

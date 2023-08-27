@@ -6,11 +6,10 @@
 /*   By: insidebsi <insidebsi@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 21:03:30 by insidebsi         #+#    #+#             */
-/*   Updated: 2023/08/27 17:04:59 by insidebsi        ###   ########.fr       */
+/*   Updated: 2023/08/27 18:58:15 by insidebsi        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include "../includes/fractol.h"
 
 double	linmap(double val, t_vec2d range1, t_vec2d range2)

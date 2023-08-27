@@ -6,12 +6,11 @@
 /*   By: insidebsi <insidebsi@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 18:50:03 by insidebsi         #+#    #+#             */
-/*   Updated: 2023/08/16 22:56:54 by insidebsi        ###   ########.fr       */
+/*   Updated: 2023/08/27 18:59:11 by insidebsi        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fractol.h"
-#include "../includes/keycodes_lnx.h"
 
 void	suicide(t_state *vars)
 {

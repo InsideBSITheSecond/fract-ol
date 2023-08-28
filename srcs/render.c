@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: insidebsi <insidebsi@student.42.fr>        +#+  +:+       +#+        */
+/*   By: llegrand <llegrand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 18:49:45 by insidebsi         #+#    #+#             */
-/*   Updated: 2023/08/27 16:42:20 by insidebsi        ###   ########.fr       */
+/*   Updated: 2023/08/28 17:11:48 by llegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,8 @@ t_region	*dividescreen(int screenwidth, int screenheight, int nbx, int nby)
 		{
 			blocks[i].sx = iter.x * blocksize.x;
 			blocks[i].sy = iter.y * blocksize.y;
-			blocks[i].ex = (iter.x + 1) * blocksize.x;
-			blocks[i].ey = (iter.y + 1) * blocksize.y;
+			blocks[i].ex = (iter.x + 1) * blocksize.x - 1;
+			blocks[i].ey = (iter.y + 1) * blocksize.y - 1;
 			i++;
 			iter.x++;
 		}
@@ -95,9 +95,10 @@ int	render(t_state *vars)
 		{
 			workerdata[i].region = vars->screenblocks[i];
 			workerdata[i].vars = vars;
-			if (pthread_create(&thread[i++], NULL,
+			if (pthread_create(&thread[i], NULL,
 					&renderworker, (void *)&workerdata[i]) != 0)
 				return (printf("ERROR : pthread create failed.\n"));
+			i++;
 		}
 		i = 0;
 		while (i != NUM_THREADS)

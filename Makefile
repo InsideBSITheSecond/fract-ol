@@ -3,15 +3,15 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: insidebsi <insidebsi@student.42.fr>        +#+  +:+       +#+         #
+#    By: llegrand <llegrand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/20 14:22:16 by llegrand          #+#    #+#              #
-#    Updated: 2023/08/27 16:53:25 by insidebsi        ###   ########.fr        #
+#    Updated: 2023/08/28 17:41:19 by llegrand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # general:
-# make re not working as intended
+# make re not working as intended (because make parallelism)
 # try fresh runs on osx & lnx
 
 # controls improvements:
@@ -23,16 +23,18 @@
 # understand why closer to 90->100 inter values makes more sharp details
 # smooth iter delimitations
 # graph only iter display mode with imaginary locking
-# dtoa for debug mode
 # fix strformat from libft (leaking)
 # auto zoom
 # cool mandelbrot POI using cursor shape
-# iter display switch between full/circle/none mode
-# rework colors (gradient provider https://cssgradient.io/)
 # BUDDAH MODE
 # ^ https://www.youtube.com/watch?v=wUlVFYJIUNA&list=PLPn28kZnbmugSaqAS_-pnLxjYte957r27&index=5 v
 # NEWTON FRACT
-
+#
+# done
+# dtoa for debug mode
+# iter display modes (line/node/full/none)
+# rework colors (gradient provider https://cssgradient.io/)
+#
 # refused
 # dynamic iterations (not precise enough)
 
@@ -112,7 +114,7 @@ endif
 
 # main program
 $(NAME) : libft.a lib$(MLX).a $(SRCS) $(INCLS)
-	$(CC) $(SRCS) $(CCARGS) -o $(NAME)
+	$(CC) $(SRCS) $(CCARGS) -g -o $(NAME)
 
 # compile main program and run it
 exe : $(NAME)
@@ -157,10 +159,13 @@ fclean : clean
 	cd $(MLX) && $(MAKE) clean
 	rm -f $(MLX)/libmlx.a
 
+all : $(NAME)
+
 # recompile
 re : fclean all
 
-all : $(NAME)
+norme :
+	while true; reset; norminette; sleep 5; end
 
 # **************************************************************************** #
 #     _               _     _ _ _                            _   

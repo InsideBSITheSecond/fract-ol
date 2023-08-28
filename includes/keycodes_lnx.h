@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef KEYCODES_H
-# define KEYCODES_H
+#ifndef KEYCODES_LNX_H
+# define KEYCODES_LNX_H
 
 # define NUMPAD_9 65434
 # define NUMPAD_8 65431

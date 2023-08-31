@@ -23,10 +23,10 @@ int	main(int argc, char **argv)
 		return (printf("WIDTH must be dividable by round(sqrt(NUM_THREADS))"));
 	if (round(HEIGHT / sqrt(NUM_THREADS)) != HEIGHT / sqrt(NUM_THREADS))
 		return (printf("HEIGHT must be dividable by round(sqrt(NUM_THREADS))"));
-	init_system(&vars, atoi(argv[1]));
+	init_system(&vars, ft_atoi(argv[1]));
 	switch_fract(&vars, julia);
 	mlx_key_hook(vars.win, key_hook, &vars);
 	mlx_mouse_hook(vars.win, mouse_hook, &vars);
-	mlx_loop_hook(vars.mlx, render, &vars);
+	mlx_loop_hook(vars.mlx, renderpoolmanager, &vars);
 	mlx_loop(vars.mlx);
 }

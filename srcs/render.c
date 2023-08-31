@@ -6,7 +6,7 @@
 /*   By: llegrand <llegrand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 18:49:45 by insidebsi         #+#    #+#             */
-/*   Updated: 2023/08/29 16:11:13 by llegrand         ###   ########.fr       */
+/*   Updated: 2023/08/31 16:19:13 by llegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	ft_zoom(int x, int y, t_state *vars, int isplus)
 		vars->virt_min.y = vars->virt_min.y * zoom_fact
 			+ virt_pos.y * (1 - zoom_fact);
 	}
-	render(vars);
+	renderpoolmanager(vars);
 }
 
 void	mlx_put_pixel(t_state *vars, int x, int y, int color)
@@ -81,7 +81,7 @@ t_region	*dividescreen(int screenwidth, int screenheight, int nbx, int nby)
 	return (blocks);
 }
 
-void	renderdeeznuts(t_state *vars)
+void	render(t_state *vars)
 {
 	if (vars->debug.drawdebug == 1)
 		renderdebug(vars);
@@ -89,7 +89,7 @@ void	renderdeeznuts(t_state *vars)
 		mlx_put_image_to_window(vars->mlx, vars->win, vars->img, 0, 0);
 }
 
-int	render(t_state *vars)
+int	renderpoolmanager(t_state *vars)
 {
 	pthread_t		thread[NUM_THREADS];
 	t_workerData	workerdata[NUM_THREADS];
@@ -105,13 +105,14 @@ int	render(t_state *vars)
 			workerdata[i].vars = vars;
 			if (pthread_create(&thread[i], NULL,
 					&renderworker, (void *)&workerdata[i]) != 0)
-				return (printf("ERROR : pthread create failed.\n"));
+				printf("ERROR : pthread create failed.\n");
 			i++;
 		}
 		i = 0;
 		while (i != NUM_THREADS)
 			if (pthread_join(thread[i++], NULL) != 0)
-				return (printf("ERROR : pthread join failed.\n"));
-		renderdeeznuts(vars);
+				printf("ERROR : pthread join failed.\n");
+		render(vars);
 	}
+	return (1);
 }

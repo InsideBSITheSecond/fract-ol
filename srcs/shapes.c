@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shapes.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: insidebsi <insidebsi@student.42.fr>        +#+  +:+       +#+        */
+/*   By: llegrand <llegrand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 18:58:33 by insidebsi         #+#    #+#             */
-/*   Updated: 2023/08/23 21:50:02 by insidebsi        ###   ########.fr       */
+/*   Updated: 2023/08/31 16:10:37 by llegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ void	drawline(t_state *vars, t_ivec2d start, t_ivec2d end,
 	}
 }
 
-void	drawgraph(t_state *vars, int size, int chevronsize)
+void	drawgraph(t_state *vars, int size)
 {
 	int		mult;
 	float	base;

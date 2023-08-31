@@ -6,7 +6,7 @@
 /*   By: llegrand <llegrand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 16:20:52 by insidebsi         #+#    #+#             */
-/*   Updated: 2023/08/31 15:36:27 by llegrand         ###   ########.fr       */
+/*   Updated: 2023/08/31 16:14:00 by llegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,9 @@ void	renderdebugtext(t_state *vars)
 	int	ystart;
 
 	ystart = 25;
-	/*mlx_string_put(vars->mlx, vars->win, DPADDING, ystart += DPADDING,
+	mlx_string_put(vars->mlx, vars->win, DPADDING, ystart += DPADDING,
+		YELLOW, ft_strformat("Threads: %i", NUM_THREADS));
+	mlx_string_put(vars->mlx, vars->win, DPADDING, ystart += DPADDING,
 		YELLOW, ft_strformat("Iterations: %i", vars->max_iterations));
 	mlx_string_put(vars->mlx, vars->win, DPADDING, ystart += DPADDING,
 		YELLOW, ft_strformat("Last hit: %d - %d",
@@ -35,7 +37,7 @@ void	renderdebugtext(t_state *vars)
 		YELLOW, ft_strformat("0sMeter: 0.123456789abcdef"));
 	mlx_string_put(vars->mlx, vars->win, DPADDING, ystart += DPADDING,
 		YELLOW, ft_strformat("Palette: %i",
-			vars->palette));*/
+			vars->palette));
 }
 
 void	renderdebughelp(t_state *vars)
@@ -66,12 +68,11 @@ void	renderdebughelp(t_state *vars)
 void	renderdebug(t_state *vars)
 {
 	t_ivec2d	crd;
-	int			ystart;
 
 	crd = real_to_virtual(vars,
 			vars->debug.lasthitreal.x, vars->debug.lasthitreal.y);
 	if (vars->debug.drawgraph)
-		drawgraph(vars, 5, 2);
+		drawgraph(vars, 5);
 	if (vars->debug.drawiter != 0)
 		vars->function(vars, crd, vars->max_iterations, 1);
 	if (vars->debug.drawlasthit)

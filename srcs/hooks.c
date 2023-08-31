@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: insidebsi <insidebsi@student.42.fr>        +#+  +:+       +#+        */
+/*   By: llegrand <llegrand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 18:50:03 by insidebsi         #+#    #+#             */
-/*   Updated: 2023/08/27 18:59:11 by insidebsi        ###   ########.fr       */
+/*   Updated: 2023/08/31 18:24:51 by llegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	suicide(t_state *vars)
 	mlx_destroy_image(vars->mlx, vars->img);
 	mlx_destroy_window(vars->mlx, vars->win);
 	free(vars->mlx);
+	free(vars->screenblocks);
 	exit(0);
 }
 

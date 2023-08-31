@@ -6,7 +6,7 @@
 /*   By: llegrand <llegrand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 19:15:39 by insidebsi         #+#    #+#             */
-/*   Updated: 2023/08/28 15:20:56 by llegrand         ###   ########.fr       */
+/*   Updated: 2023/08/31 17:23:02 by llegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -209,7 +209,7 @@ void				ft_zoom(int x, int y, t_state *vars, int isplus);
 void				mlx_put_pixel(t_state *vars, int x, int y, int color);
 t_region			*dividescreen(int screenWidth, int screenHeight, int nbx,
 						int nby);
-int					render(t_state *vars);
+int					renderpoolmanager(t_state *vars);
 
 //threads.c
 void				*renderworker(void *workerData);
@@ -222,7 +222,7 @@ void				draw_line_with_width(t_state *vars, t_ivec2d start,
 						t_ivec2d end, int width);
 void				drawsquare(t_state *vars, t_region region);
 void				drawcircle(t_state *vars, t_circle circle);
-void				drawgraph(t_state *vars, int size, int chevronsize);
+void				drawgraph(t_state *vars, int size);
 void				drawline(t_state *vars, t_ivec2d start, t_ivec2d end,
 						int color);
 

@@ -6,7 +6,7 @@
 #    By: llegrand <llegrand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/20 14:22:16 by llegrand          #+#    #+#              #
-#    Updated: 2023/08/28 17:41:19 by llegrand         ###   ########.fr        #
+#    Updated: 2023/08/31 18:38:57 by llegrand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,7 +52,7 @@ UNAME := $(shell uname)
 
 # compiler configs
 CC := gcc
-CCARGS := -g #-Wall -Werror -Wextra
+CCARGS := -Wall -Werror -Wextra -O3
 
 # archive configs
 AR := ar
@@ -60,11 +60,11 @@ ARARGS := -crs
 
 
 # linux-specific compiler args
-LNXARGS := -Iincludes -L. -lft -Lmlx_lnx -lmlx_lnx -L/usr/lib -Imlx_lnx -lXext -lX11 -lm -lz -lpthread -O3
+LNXARGS := -Iincludes -L. -lft -Lmlx_lnx -lmlx_lnx -L/usr/lib -Imlx_lnx -lXext -lX11 -lm -lz -lpthread
 #LNXINCL := includes/keycodes_lnx.h
 
 # osx-specific compiler args
-OSXARGS := -Iincludes -L. -lft -Lmlx_osx -lmlx_osx -L/usr/lib -Imlx_osx -framework OpenGL -framework AppKit -lm -lz -lpthread -O3
+OSXARGS := -Iincludes -L. -lft -Lmlx_osx -lmlx_osx -L/usr/lib -Imlx_osx -framework OpenGL -framework AppKit -lm -lz -lpthread
 #OSXINCL := includes/keycodes_osx.h
 
 # source files
@@ -133,7 +133,7 @@ libft/Makefile :
 
 # compile mlx
 lib$(MLX).a : $(MLX)/Makefile
-	cd $(MLX) && $(MAKE)
+	cd $(MLX) && $(MAKE) CFLAGS+=-w
 	cp $(MLX)/libmlx.a ./lib$(MLX).a
 
 # get mlx_osx from intra CDN

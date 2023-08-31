@@ -6,7 +6,7 @@
 /*   By: llegrand <llegrand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 16:20:52 by insidebsi         #+#    #+#             */
-/*   Updated: 2023/08/28 15:13:18 by llegrand         ###   ########.fr       */
+/*   Updated: 2023/08/31 15:36:27 by llegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	renderdebugtext(t_state *vars)
 	int	ystart;
 
 	ystart = 25;
-	mlx_string_put(vars->mlx, vars->win, DPADDING, ystart += DPADDING,
+	/*mlx_string_put(vars->mlx, vars->win, DPADDING, ystart += DPADDING,
 		YELLOW, ft_strformat("Iterations: %i", vars->max_iterations));
 	mlx_string_put(vars->mlx, vars->win, DPADDING, ystart += DPADDING,
 		YELLOW, ft_strformat("Last hit: %d - %d",
@@ -35,7 +35,7 @@ void	renderdebugtext(t_state *vars)
 		YELLOW, ft_strformat("0sMeter: 0.123456789abcdef"));
 	mlx_string_put(vars->mlx, vars->win, DPADDING, ystart += DPADDING,
 		YELLOW, ft_strformat("Palette: %i",
-			vars->palette));
+			vars->palette));*/
 }
 
 void	renderdebughelp(t_state *vars)

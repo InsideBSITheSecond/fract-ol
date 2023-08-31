@@ -6,7 +6,7 @@
 /*   By: llegrand <llegrand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 18:49:45 by insidebsi         #+#    #+#             */
-/*   Updated: 2023/08/28 17:11:48 by llegrand         ###   ########.fr       */
+/*   Updated: 2023/08/29 16:11:13 by llegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,8 @@ t_region	*dividescreen(int screenwidth, int screenheight, int nbx, int nby)
 		{
 			blocks[i].sx = iter.x * blocksize.x;
 			blocks[i].sy = iter.y * blocksize.y;
-			blocks[i].ex = (iter.x + 1) * blocksize.x - 1;
-			blocks[i].ey = (iter.y + 1) * blocksize.y - 1;
+			blocks[i].ex = (iter.x + 1) * blocksize.x;
+			blocks[i].ey = (iter.y + 1) * blocksize.y;
 			i++;
 			iter.x++;
 		}
@@ -79,6 +79,14 @@ t_region	*dividescreen(int screenwidth, int screenheight, int nbx, int nby)
 	}
 	printf("%iB(%ix%i) -> %iW\n", i, blocksize.x, blocksize.y, nbx * nby);
 	return (blocks);
+}
+
+void	renderdeeznuts(t_state *vars)
+{
+	if (vars->debug.drawdebug == 1)
+		renderdebug(vars);
+	else
+		mlx_put_image_to_window(vars->mlx, vars->win, vars->img, 0, 0);
 }
 
 int	render(t_state *vars)
@@ -104,9 +112,6 @@ int	render(t_state *vars)
 		while (i != NUM_THREADS)
 			if (pthread_join(thread[i++], NULL) != 0)
 				return (printf("ERROR : pthread join failed.\n"));
-		if (vars->debug.drawdebug == 1)
-			renderdebug(vars);
-		else
-			mlx_put_image_to_window(vars->mlx, vars->win, vars->img, 0, 0);
+		renderdeeznuts(vars);
 	}
 }

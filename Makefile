@@ -6,7 +6,7 @@
 #    By: llegrand <llegrand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/20 14:22:16 by llegrand          #+#    #+#              #
-#    Updated: 2023/08/31 18:38:57 by llegrand         ###   ########.fr        #
+#    Updated: 2023/09/05 18:06:15 by llegrand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -165,7 +165,7 @@ all : $(NAME)
 re : fclean all
 
 norme :
-	while true; reset; norminette; sleep 5; end
+	norminette srcs libft includes
 
 # **************************************************************************** #
 #     _               _     _ _ _                            _   

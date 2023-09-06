@@ -6,7 +6,7 @@
 /*   By: llegrand <llegrand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 19:15:39 by insidebsi         #+#    #+#             */
-/*   Updated: 2023/08/31 17:23:02 by llegrand         ###   ########.fr       */
+/*   Updated: 2023/09/06 14:16:32 by llegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,11 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-# define NUM_THREADS 36
-# define WIDTH 600
-# define HEIGHT 600
+# define NUM_THREADS 16
+# define WIDTH 840
+# define HEIGHT 840
 # define DPADDING 15
-# define DOFFSET 250
+# define DOFFSET 300
 
 typedef enum e_fractals
 {

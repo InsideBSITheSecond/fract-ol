@@ -6,7 +6,7 @@
 #    By: llegrand <llegrand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/20 14:22:16 by llegrand          #+#    #+#              #
-#    Updated: 2023/09/05 18:06:15 by llegrand         ###   ########.fr        #
+#    Updated: 2023/09/06 15:27:16 by llegrand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,10 +20,8 @@
 # KEY REPEAT
 
 # misc:
-# understand why closer to 90->100 inter values makes more sharp details
 # smooth iter delimitations
 # graph only iter display mode with imaginary locking
-# fix strformat from libft (leaking)
 # auto zoom
 # cool mandelbrot POI using cursor shape
 # BUDDAH MODE
@@ -34,6 +32,7 @@
 # dtoa for debug mode
 # iter display modes (line/node/full/none)
 # rework colors (gradient provider https://cssgradient.io/)
+# fix strformat from libft (leaking)
 #
 # refused
 # dynamic iterations (not precise enough)
@@ -165,7 +164,7 @@ all : $(NAME)
 re : fclean all
 
 norme :
-	norminette srcs libft includes
+	norminette srcs libft includes -R CheckDefine
 
 # **************************************************************************** #
 #     _               _     _ _ _                            _   

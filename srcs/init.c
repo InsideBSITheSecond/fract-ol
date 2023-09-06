@@ -21,7 +21,7 @@ void	init_system(t_state *vars, int max_iterations)
 	vars->virt_min = (t_vec2d){.x = -2, .y = -2};
 	vars->virt_max = (t_vec2d){.x = 2, .y = 2};
 	vars->zoom = 1.0f;
-	vars->palette = 2;
+	vars->palette = 1;
 	vars->fract = (t_fracts){.mandelbrot = 2,
 		.julia = (t_vec2d){.x = 0, .y = 0}, .burning = 1};
 	vars->render_lock = 0;

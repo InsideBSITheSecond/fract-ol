@@ -90,4 +90,6 @@ void	kb_misc(int keycode, t_state *vars)
 		switch_fract(vars, mandelbrot);
 	else if (keycode == KEY_3)
 		switch_fract(vars, burning);
+	else if (keycode == KEY_4)
+		switch_fract(vars, black);
 }

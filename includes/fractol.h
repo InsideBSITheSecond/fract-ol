@@ -6,7 +6,7 @@
 /*   By: llegrand <llegrand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 19:15:39 by insidebsi         #+#    #+#             */
-/*   Updated: 2023/09/06 14:16:32 by llegrand         ###   ########.fr       */
+/*   Updated: 2023/09/06 15:41:15 by llegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ typedef enum e_fractals
 {
 	mandelbrot,
 	julia,
-	burning
+	burning,
+	black
 }					t_fractals;
 
 typedef struct s_vec2d
@@ -178,6 +179,8 @@ float				mandelbrot_math(t_state *vars, t_ivec2d vector,
 float				julia_math(t_state *vars, t_ivec2d vector,
 						int max_iterations, int displaychain);
 float				burning_ship_math(t_state *vars, t_ivec2d vector,
+						int max_iterations, int displaychain);
+float				empty(t_state *vars, t_ivec2d vector,
 						int max_iterations, int displaychain);
 
 //hooks.c

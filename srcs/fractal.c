@@ -12,11 +12,12 @@
 
 #include "../includes/fractol.h"
 
-t_vec2d	vec2d_pow_add(t_fracts var, t_vec2d val, t_vec2d constant)
+float	empty(t_state *vars, t_ivec2d vector,
+		int max_iterations, int displaychain)
 {
-	val = power_vec2d(val, var.mandelbrot);
-	val = add_vec2d(val, constant);
-	return (val);
+	if (displaychain)
+		mandelbrot_math(vars, vector, max_iterations, displaychain);
+	return (0);
 }
 
 void	drawiter(t_state *vars, t_vec2d val, t_vec2d bkp, int i)

@@ -60,3 +60,10 @@ t_vec2d	power_vec2d(t_vec2d a, int n)
 		return (mult_vec2d(tmp, tmp));
 	return (mult_vec2d(a, mult_vec2d(tmp, tmp)));
 }
+
+t_vec2d	vec2d_pow_add(t_fracts var, t_vec2d val, t_vec2d constant)
+{
+	val = power_vec2d(val, var.mandelbrot);
+	val = add_vec2d(val, constant);
+	return (val);
+}

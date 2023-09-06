@@ -48,4 +48,6 @@ void	switch_fract(t_state *vars, t_fractals new)
 		vars->function = &julia_math;
 	else if (new == burning)
 		vars->function = &burning_ship_math;
+	else if (new == black)
+		vars->function = &empty;
 }

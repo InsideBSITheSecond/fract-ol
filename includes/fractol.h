@@ -6,7 +6,7 @@
 /*   By: llegrand <llegrand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 19:15:39 by insidebsi         #+#    #+#             */
-/*   Updated: 2023/09/06 15:41:15 by llegrand         ###   ########.fr       */
+/*   Updated: 2023/09/06 17:36:45 by llegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,7 +186,7 @@ float				empty(t_state *vars, t_ivec2d vector,
 //hooks.c
 int					key_hook(int keycode, t_state *vars);
 int					mouse_hook(int code, int x, int y, t_state *vars);
-void				suicide(t_state *vars);
+int					suicide(t_state *vars);
 void				consoleprint(t_state *vars);
 
 //math.c

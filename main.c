@@ -28,5 +28,6 @@ int	main(int argc, char **argv)
 	mlx_key_hook(vars.win, key_hook, &vars);
 	mlx_mouse_hook(vars.win, mouse_hook, &vars);
 	mlx_loop_hook(vars.mlx, renderpoolmanager, &vars);
+	mlx_hook(vars.win, 17, 0, suicide, &vars);
 	mlx_loop(vars.mlx);
 }

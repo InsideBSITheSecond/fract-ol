@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   color.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: insidebsi <insidebsi@student.42.fr>        +#+  +:+       +#+        */
+/*   By: llegrand <llegrand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 22:06:49 by insidebsi         #+#    #+#             */
-/*   Updated: 2023/08/27 17:07:43 by insidebsi        ###   ########.fr       */
+/*   Updated: 2023/09/06 17:05:44 by llegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,11 @@ int	which_colour(int it, int palette, int max_it)
 	if (palette == 0)
 		return (mappedlmap(&mapping2, linmap(it,
 					(t_vec2d){.x = 1, .y = max_it},
-				(t_vec2d){.x = 0, .y = 110})));
+				(t_vec2d){.x = 0, .y = 101})));
 	else if (palette == 1)
 		return (mappedlmap(&mapping, linmap(it,
 					(t_vec2d){.x = 1, .y = max_it},
-				(t_vec2d){.x = 0, .y = 110})));
+				(t_vec2d){.x = 0, .y = 101})));
 	else if (palette == 2)
 		return (create_argb(0, 
 				(it * 2 % 255),

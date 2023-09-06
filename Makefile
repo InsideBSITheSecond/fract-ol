@@ -6,7 +6,7 @@
 #    By: llegrand <llegrand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/20 14:22:16 by llegrand          #+#    #+#              #
-#    Updated: 2023/09/06 15:27:16 by llegrand         ###   ########.fr        #
+#    Updated: 2023/09/06 18:39:10 by llegrand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -113,7 +113,7 @@ endif
 
 # main program
 $(NAME) : libft.a lib$(MLX).a $(SRCS) $(INCLS)
-	$(CC) $(SRCS) $(CCARGS) -g -o $(NAME)
+	$(CC) $(SRCS) $(CCARGS) -o $(NAME)
 
 # compile main program and run it
 exe : $(NAME)

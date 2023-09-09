@@ -6,7 +6,7 @@
 #    By: llegrand <llegrand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/20 14:22:16 by llegrand          #+#    #+#              #
-#    Updated: 2023/09/06 18:39:10 by llegrand         ###   ########.fr        #
+#    Updated: 2023/09/09 16:13:13 by llegrand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -67,7 +67,7 @@ OSXARGS := -Iincludes -L. -lft -Lmlx_osx -lmlx_osx -L/usr/lib -Imlx_osx -framewo
 #OSXINCL := includes/keycodes_osx.h
 
 # source files
-SRCS := main.c srcs/palette.c srcs/linear_mapping.c srcs/debug.c srcs/color.c srcs/controls.c srcs/coordinates.c srcs/fractal.c srcs/hooks.c srcs/init.c srcs/render.c srcs/shapes.c srcs/vector_advanced.c srcs/vector_basics.c srcs/worker.c
+SRCS := main.c srcs/palette.c srcs/linear_mapping.c srcs/debug.c srcs/color.c srcs/controls.c srcs/coordinates.c srcs/fractal.c srcs/hooks.c srcs/lifecycle.c srcs/render.c srcs/shapes.c srcs/vector_advanced.c srcs/vector_basics.c srcs/worker.c
 
 # include files
 INCLS := includes/colors.h includes/fractol.h
@@ -123,7 +123,7 @@ dep : libft.a lib$(MLX).a
 	
 # libft compilation
 libft.a : libft/Makefile
-	cd libft && $(MAKE)
+	cd libft && $(MAKE) -j16
 	cp libft/libft.a .
 
 # get libft submodule from my github
@@ -132,7 +132,7 @@ libft/Makefile :
 
 # compile mlx
 lib$(MLX).a : $(MLX)/Makefile
-	cd $(MLX) && $(MAKE) CFLAGS+=-w
+	cd $(MLX) && $(MAKE) -j16 CFLAGS+=-w
 	cp $(MLX)/libmlx.a ./lib$(MLX).a
 
 # get mlx_osx from intra CDN

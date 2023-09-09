@@ -12,6 +12,24 @@
 
 #include "../includes/fractol.h"
 
+void	considersuicide(t_state *vars, void *check, char *reason)
+{
+	if (!check)
+		suicide(vars, reason);
+}
+
+void	createwindow(t_state *vars)
+{
+	vars->mlx = mlx_init();
+	considersuicide(vars, vars->mlx, "MLX init failed");
+	vars->win = mlx_new_window(vars->mlx,
+			vars->render_size.x, vars->render_size.y, "UwU");
+	vars->img = mlx_new_image(vars->mlx,
+			vars->render_size.x, vars->render_size.y);
+	vars->addr = mlx_get_data_addr(vars->img,
+			&vars->bits_per_pixel, &vars->line_length, &vars->endian);
+}
+
 void	init_system(t_state *vars, int max_iterations)
 {
 	vars->screenblocks = dividescreen(WIDTH, HEIGHT,
@@ -31,13 +49,7 @@ void	init_system(t_state *vars, int max_iterations)
 	vars->debug.drawiter = 0;
 	vars->debug.drawlasthit = 0;
 	vars->debug.drawhelp = 0;
-	vars->mlx = mlx_init();
-	vars->win = mlx_new_window(vars->mlx,
-			vars->render_size.x, vars->render_size.y, "UwU");
-	vars->img = mlx_new_image(vars->mlx,
-			vars->render_size.x, vars->render_size.y);
-	vars->addr = mlx_get_data_addr(vars->img,
-			&vars->bits_per_pixel, &vars->line_length, &vars->endian);
+	createwindow(vars);
 }
 
 void	switch_fract(t_state *vars, t_fractals new)
@@ -50,4 +62,18 @@ void	switch_fract(t_state *vars, t_fractals new)
 		vars->function = &burning_ship_math;
 	else if (new == black)
 		vars->function = &empty;
+}
+
+int	suicide(t_state *vars, char *reason)
+{
+	ft_printf("Programs killed itself: %s", reason);
+	if (vars->img)
+		mlx_destroy_image(vars->mlx, vars->img);
+	if (vars->win)
+		mlx_destroy_window(vars->mlx, vars->win);
+	if (vars->mlx)
+		free(vars->mlx);
+	if (vars->screenblocks)
+		free(vars->screenblocks);
+	exit(0);
 }

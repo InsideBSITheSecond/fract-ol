@@ -6,7 +6,7 @@
 /*   By: llegrand <llegrand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 18:49:45 by insidebsi         #+#    #+#             */
-/*   Updated: 2023/08/31 16:19:13 by llegrand         ###   ########.fr       */
+/*   Updated: 2023/09/09 15:14:18 by llegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,13 +105,13 @@ int	renderpoolmanager(t_state *vars)
 			workerdata[i].vars = vars;
 			if (pthread_create(&thread[i], NULL,
 					&renderworker, (void *)&workerdata[i]) != 0)
-				printf("ERROR : pthread create failed.\n");
+				suicide(vars, "render threads creation failed\n");
 			i++;
 		}
 		i = 0;
 		while (i != NUM_THREADS)
 			if (pthread_join(thread[i++], NULL) != 0)
-				printf("ERROR : pthread join failed.\n");
+				suicide(vars, "render threads join failed\n");
 		render(vars);
 	}
 	return (1);

@@ -12,14 +12,6 @@
 
 #include "../includes/fractol.h"
 
-float	empty(t_state *vars, t_ivec2d vector,
-		int max_iterations, int displaychain)
-{
-	if (displaychain)
-		mandelbrot_math(vars, vector, max_iterations, displaychain);
-	return (0);
-}
-
 void	drawiter(t_state *vars, t_vec2d val, t_vec2d bkp, int i)
 {
 	if (vars->debug.drawiter == 1 || vars->debug.drawiter == 3)
@@ -33,6 +25,14 @@ void	drawiter(t_state *vars, t_vec2d val, t_vec2d bkp, int i)
 			.y = real_to_virtual(vars, val.x, val.y).y, 
 			.color = which_colour(i,
 				vars->palette, vars->max_iterations), .rad = 2});
+}
+
+float	empty(t_state *vars, t_ivec2d vector,
+		int max_iterations, int displaychain)
+{
+	if (displaychain)
+		mandelbrot_math(vars, vector, max_iterations, displaychain);
+	return (0);
 }
 
 float	mandelbrot_math(t_state *vars, t_ivec2d vector,

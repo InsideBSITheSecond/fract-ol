@@ -77,7 +77,7 @@ void	kb_debugmode(int keycode, t_state *vars)
 void	kb_misc(int keycode, t_state *vars)
 {
 	if (keycode == KEY_ESC || keycode == KEY_X)
-		suicide(vars);
+		suicide(vars, "user requested suicide\n");
 	else if (keycode == KEY_R)
 	{
 		vars->virt_min = (t_vec2d){.x = -2, .y = -2};

@@ -6,7 +6,7 @@
 /*   By: insidebsi <insidebsi@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 23:00:23 by insidebsi         #+#    #+#             */
-/*   Updated: 2023/09/09 23:14:31 by insidebsi        ###   ########.fr       */
+/*   Updated: 2023/09/09 23:16:36 by insidebsi        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,5 @@ char	*gettitle(void)
 	};
 
 	srand(time(NULL));
-	return (titles[rand() % 19]);
+	return (titles[rand() % 20]);
 }

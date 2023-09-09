@@ -6,7 +6,7 @@
 /*   By: llegrand <llegrand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 19:15:39 by insidebsi         #+#    #+#             */
-/*   Updated: 2023/09/09 16:10:25 by llegrand         ###   ########.fr       */
+/*   Updated: 2023/09/09 18:11:40 by llegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,9 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-# define NUM_THREADS 16
+# ifndef NUM_THREADS
+#  define NUM_THREADS 1
+# endif
 # define WIDTH 1024
 # define HEIGHT 1024
 //# define WIDTH 840
@@ -166,6 +168,8 @@ typedef struct s_workerData
 
 t_mappingpoint		*getpalette1(void);
 t_mappingpoint		*getpalette2(void);
+
+void				parse(int argc, char **argv, t_state *vars);
 
 //colors.c
 int					create_argb(int a, int r, int g, int b);

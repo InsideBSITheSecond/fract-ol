@@ -66,7 +66,7 @@ void	switch_fract(t_state *vars, t_fractals new)
 
 int	suicide(t_state *vars, char *reason)
 {
-	ft_printf("Programs killed itself: %s", reason);
+	ft_printf("Program killed itself: %s", reason);
 	if (vars->img)
 		mlx_destroy_image(vars->mlx, vars->img);
 	if (vars->win)

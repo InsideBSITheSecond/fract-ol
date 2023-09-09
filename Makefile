@@ -6,7 +6,7 @@
 #    By: llegrand <llegrand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/20 14:22:16 by llegrand          #+#    #+#              #
-#    Updated: 2023/09/09 16:13:13 by llegrand         ###   ########.fr        #
+#    Updated: 2023/09/09 18:18:13 by llegrand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,12 +46,14 @@
 #                                           
 # **************************************************************************** #
 
+THREADS := 1
+
 # uname
 UNAME := $(shell uname)
 
 # compiler configs
 CC := gcc
-CCARGS := -Wall -Werror -Wextra -O3
+CCARGS := -Wall -Werror -Wextra -O3 -D NUM_THREADS=$(THREADS)
 
 # archive configs
 AR := ar
@@ -67,7 +69,7 @@ OSXARGS := -Iincludes -L. -lft -Lmlx_osx -lmlx_osx -L/usr/lib -Imlx_osx -framewo
 #OSXINCL := includes/keycodes_osx.h
 
 # source files
-SRCS := main.c srcs/palette.c srcs/linear_mapping.c srcs/debug.c srcs/color.c srcs/controls.c srcs/coordinates.c srcs/fractal.c srcs/hooks.c srcs/lifecycle.c srcs/render.c srcs/shapes.c srcs/vector_advanced.c srcs/vector_basics.c srcs/worker.c
+SRCS := main.c srcs/parsing.c srcs/palette.c srcs/linear_mapping.c srcs/debug.c srcs/color.c srcs/controls.c srcs/coordinates.c srcs/fractal.c srcs/hooks.c srcs/lifecycle.c srcs/render.c srcs/shapes.c srcs/vector_advanced.c srcs/vector_basics.c srcs/worker.c
 
 # include files
 INCLS := includes/colors.h includes/fractol.h
@@ -117,7 +119,7 @@ $(NAME) : libft.a lib$(MLX).a $(SRCS) $(INCLS)
 
 # compile main program and run it
 exe : $(NAME)
-	./$(NAME) 50
+	./$(NAME) black
 
 dep : libft.a lib$(MLX).a
 	

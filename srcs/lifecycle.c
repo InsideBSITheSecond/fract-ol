@@ -23,7 +23,7 @@ void	createwindow(t_state *vars)
 	vars->mlx = mlx_init();
 	considersuicide(vars, vars->mlx, "MLX init failed");
 	vars->win = mlx_new_window(vars->mlx,
-			vars->render_size.x, vars->render_size.y, "UwU");
+			vars->render_size.x, vars->render_size.y, gettitle());
 	vars->img = mlx_new_image(vars->mlx,
 			vars->render_size.x, vars->render_size.y);
 	vars->addr = mlx_get_data_addr(vars->img,

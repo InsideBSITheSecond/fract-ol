@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fractol.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llegrand <llegrand@student.42.fr>          +#+  +:+       +#+        */
+/*   By: insidebsi <insidebsi@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 19:15:39 by insidebsi         #+#    #+#             */
-/*   Updated: 2023/09/09 18:11:40 by llegrand         ###   ########.fr       */
+/*   Updated: 2023/09/09 23:06:00 by insidebsi        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,18 +168,13 @@ typedef struct s_workerData
 
 t_mappingpoint		*getpalette1(void);
 t_mappingpoint		*getpalette2(void);
-
 void				parse(int argc, char **argv, t_state *vars);
-
-//colors.c
 int					create_argb(int a, int r, int g, int b);
-//int			get_a(int trgb);
+//int				get_a(int trgb);
 int					get_r(int trgb);
 int					get_g(int trgb);
 int					get_b(int trgb);
 int					which_colour(int it, int palette, int max_it);
-
-//fractal.c
 t_vec2d				vec2d_pow_add(t_fracts var, t_vec2d val, t_vec2d constant);
 float				mandelbrot_math(t_state *vars, t_ivec2d vector,
 						int max_iterations, int displaychain);
@@ -189,14 +184,10 @@ float				burning_ship_math(t_state *vars, t_ivec2d vector,
 						int max_iterations, int displaychain);
 float				empty(t_state *vars, t_ivec2d vector,
 						int max_iterations, int displaychain);
-
-//hooks.c
 int					key_hook(int keycode, t_state *vars);
 int					mouse_hook(int code, int x, int y, t_state *vars);
 int					suicide(t_state *vars, char *reason);
 void				consoleprint(t_state *vars);
-
-//math.c
 t_vec2d				virtual_to_real(t_state *vars, int x, int y);
 t_vec2d				virtual_to_real2(t_vec2d virt_min, t_vec2d virt_max, int x,
 						int y);
@@ -213,21 +204,14 @@ t_vec2d				mult_vec2d(t_vec2d a, t_vec2d b);
 t_vec2d				div_vec2d(t_vec2d a, t_vec2d b);
 void				sqr_vec2d(t_vec2d *a, double real_c, double img_c);
 t_vec2d				power_vec2d(t_vec2d a, int n);
-
-//render.c
 void				ft_zoom(int x, int y, t_state *vars, int isplus);
 void				mlx_put_pixel(t_state *vars, int x, int y, int color);
 t_region			*dividescreen(int screenWidth, int screenHeight, int nbx,
 						int nby);
 int					renderpoolmanager(t_state *vars);
-
-//threads.c
 void				*renderworker(void *workerData);
-
-//init.c
 void				init_system(t_state *vars, int max_iterations);
 void				switch_fract(t_state *vars, t_fractals new);
-
 void				draw_line_with_width(t_state *vars, t_ivec2d start,
 						t_ivec2d end, int width);
 void				drawsquare(t_state *vars, t_region region);
@@ -235,16 +219,14 @@ void				drawcircle(t_state *vars, t_circle circle);
 void				drawgraph(t_state *vars, int size);
 void				drawline(t_state *vars, t_ivec2d start, t_ivec2d end,
 						int color);
-
 void				kb_movement(int keycode, t_state *vars);
 void				kb_modifiers(int keycode, t_state *vars);
 void				kb_debugmode(int keycode, t_state *vars);
 void				kb_misc(int keycode, t_state *vars);
-
 void				renderdebug(t_state *vars);
-
 double				linmap(double val, t_vec2d range1, t_vec2d range2);
 int					colorlinmap(int a, int b, float ratio);
 double				mappedlmap(const t_mpmapping *mapping, double input);
+char				*gettitle(void);
 
 #endif

@@ -95,6 +95,7 @@ float	burning_ship_math(t_state *vars, t_ivec2d vector,
 	i = 0;
 	val.x = 0.0;
 	val.y = 0.0;
+	vars->fract.julia = (t_vec2d){.x = 0, .y = 0};
 	constant = virtual_to_real(vars, vector.x, vector.y);
 	while (i < max_iterations && vars->fract.julia.x == 0.0)
 	{

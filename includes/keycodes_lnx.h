@@ -44,5 +44,6 @@
 # define KEY_1 38
 # define KEY_2 233
 # define KEY_3 34
+# define KEY_4 39
 
 #endif

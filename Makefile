@@ -3,39 +3,32 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: insidebsi <insidebsi@student.42.fr>        +#+  +:+       +#+         #
+#    By: llegrand <llegrand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/20 14:22:16 by llegrand          #+#    #+#              #
-#    Updated: 2023/09/09 23:06:24 by insidebsi        ###   ########.fr        #
+#    Updated: 2023/09/11 15:49:27 by llegrand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-# general:
-# make re not working as intended (because make parallelism)
-# try fresh runs on osx & lnx
-
-# controls improvements:
-# NEED TO MAKE IT SO WE CAN DRAG
-# MIDDLE MOUSE CENTER ON MUOSE POS
-# KEY REPEAT
-
-# misc:
-# smooth iter delimitations
-# graph only iter display mode with imaginary locking
-# auto zoom
-# cool mandelbrot POI using cursor shape
-# BUDDAH MODE
-# ^ https://www.youtube.com/watch?v=wUlVFYJIUNA&list=PLPn28kZnbmugSaqAS_-pnLxjYte957r27&index=5 v
-# NEWTON FRACT
-#
 # done
 # dtoa for debug mode
 # iter display modes (line/node/full/none)
 # rework colors (gradient provider https://cssgradient.io/)
 # fix strformat from libft (leaking)
+# make re not working as intended (because make parallelism)
+# graph only iter display mode with imaginary locking
 #
-# refused
+# rejected
 # dynamic iterations (not precise enough)
+# NEED TO MAKE IT SO WE CAN DRAG
+# MIDDLE MOUSE CENTER ON MUOSE POS
+# KEY REPEAT
+# smooth iter delimitations
+# auto zoom
+# cool mandelbrot POI using cursor shape
+# BUDDAH MODE
+# ^ https://www.youtube.com/watch?v=wUlVFYJIUNA&list=PLPn28kZnbmugSaqAS_-pnLxjYte957r27&index=5 v
+# NEWTON FRACT
 
 # **************************************************************************** #
 #                 _       _     _           

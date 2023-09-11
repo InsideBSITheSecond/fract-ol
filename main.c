@@ -18,7 +18,7 @@ int	main(int argc, char **argv)
 
 	(void)argc;
 	if (round(sqrt(NUM_THREADS)) != sqrt(NUM_THREADS))
-		return (printf("f"));
+		return (printf("sqrt(NUM_THREAD) must be an integer"));
 	if (round(WIDTH / sqrt(NUM_THREADS)) != WIDTH / sqrt(NUM_THREADS))
 		return (printf("WIDTH must be dividable by round(sqrt(NUM_THREADS))"));
 	if (round(HEIGHT / sqrt(NUM_THREADS)) != HEIGHT / sqrt(NUM_THREADS))
